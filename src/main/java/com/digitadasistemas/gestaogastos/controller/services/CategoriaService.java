@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
 
@@ -20,7 +21,8 @@ public class CategoriaService {
 	}
 	
 	public Categoria buscar(Long id) {
-		return repository.findById(id).get();
+		return repository.findById(id)
+				.orElseThrow(() -> new ObjetoNaoEncontrado("Categoria não encontrado id: " + id));
 	}
 	
 	public List<Categoria> listar(){

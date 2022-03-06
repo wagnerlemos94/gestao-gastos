@@ -23,7 +23,7 @@ public class LancamentoServiceTest {
 	public static final Categoria categoria = new Categoria(1L,"carro");
 	
 	private Lancamento lancamentoSalvo() {
-		return new Lancamento(null,1,"Alinhamento + Balanciamento",60.00,categoria);
+		return new Lancamento(null,1,"Alinhamento + Balanciamento",60.00,2,categoria);
 	}
 	
 	@Order(1)

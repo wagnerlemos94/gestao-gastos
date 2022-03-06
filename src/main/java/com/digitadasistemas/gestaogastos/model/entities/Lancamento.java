@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.digitadasistemas.gestaogastos.model.enuns.Mes;
+import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,13 +28,23 @@ public class Lancamento {
 	@EqualsAndHashCode.Include
 	private Long id;
 	@Column(nullable = false)
-	private Integer tipo;
+	private TipoLancamento tipo;
 	@Column(nullable = false)
 	private String descricao;
 	@Column(nullable = false)
 	private Double valor;	
+	@Column(nullable = false)
+	private Mes mes;
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Categoria categoria;
+	
+	public void setTipo(int codigo) {
+		this.tipo = TipoLancamento.toEnum(codigo);
+	}
+	
+	public void setMes(int codigo) {
+		this.mes = Mes.toEnum(codigo);
+	}
 
 }

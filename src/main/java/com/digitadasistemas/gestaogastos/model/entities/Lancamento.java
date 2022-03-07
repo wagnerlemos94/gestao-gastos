@@ -35,9 +35,14 @@ public class Lancamento {
 	private Double valor;	
 	@Column(nullable = false)
 	private Mes mes;
+	
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Categoria categoria;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Usuario usuario;
 	
 	public void setTipo(int codigo) {
 		this.tipo = TipoLancamento.toEnum(codigo);

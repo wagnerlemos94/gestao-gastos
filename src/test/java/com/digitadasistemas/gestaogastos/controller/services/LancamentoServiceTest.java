@@ -13,6 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
+import com.digitadasistemas.gestaogastos.model.entities.Usuario;
+import com.digitadasistemas.gestaogastos.model.enuns.Mes;
+import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 
 @SpringBootTest
 public class LancamentoServiceTest {
@@ -21,9 +24,10 @@ public class LancamentoServiceTest {
 	private LancamentoService service;
 	
 	public static final Categoria categoria = new Categoria(1L,"carro");
+	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com", "1234567931", "123456");
 	
 	private Lancamento lancamentoSalvo() {
-		return new Lancamento(null,1,"Alinhamento + Balanciamento",60.00,2,categoria);
+		return new Lancamento(null,TipoLancamento.DESPESA,"Alinhamento + Balanciamento",60.00,Mes.JANEITO,categoria,usuario);
 	}
 	
 	@Order(1)

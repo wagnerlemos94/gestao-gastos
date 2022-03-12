@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.digitadasistemas.gestaogastos.model.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
@@ -57,7 +58,7 @@ public class LancamentoServiceTest {
 		service.cadastrar(lancamento1);
 		service.cadastrar(lancamento2);
 		
-		List<Lancamento> listaLancamento = service.listar();
+		List<LancamentoConsultaDTO> listaLancamento = service.listar(null);
 			
 		assertTrue(listaLancamento.size() >= 2);	
 		

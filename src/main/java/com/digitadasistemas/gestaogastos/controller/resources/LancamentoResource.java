@@ -2,6 +2,8 @@ package com.digitadasistemas.gestaogastos.controller.resources;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.digitadasistemas.gestaogastos.controller.services.LancamentoService;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
+import com.digitadasistemas.gestaogastos.model.Filtro;
 import com.digitadasistemas.gestaogastos.model.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 
@@ -42,8 +45,8 @@ public class LancamentoResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<LancamentoConsultaDTO>> listar(){
-		List<LancamentoConsultaDTO> lancamentos = service.listar();
+	public ResponseEntity<List<LancamentoConsultaDTO>> listar(@PathParam(value = "filtro") Filtro filtro){
+		List<LancamentoConsultaDTO> lancamentos = service.listar(filtro);
 		return ResponseEntity.ok().body(lancamentos);
 	}
 	

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
+import com.digitadasistemas.gestaogastos.model.Filtro;
 import com.digitadasistemas.gestaogastos.model.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.repositories.Lancamentorepository;
@@ -31,14 +32,18 @@ public class LancamentoService {
 				.orElseThrow(() -> new ObjetoNaoEncontrado("Lancamento não encontrado id: " + id));
 	}
 
-	public List<LancamentoConsultaDTO> listar() {
+	public List<LancamentoConsultaDTO> listar(Filtro filtro) {
 
-		List<LancamentoConsultaDTO>lancamentos = repository.findAll().stream().map(
+		List<LancamentoConsultaDTO>lancamentos = repository.findAll().stream()
+				.map(
 				lancamento -> new LancamentoConsultaDTO(lancamento)
 				).collect(Collectors.toList());
 
+		lancamentos = filtro(lancamentos, filtro);
+		
 		return lancamentos;
 	}
+
 
 	@Transactional
 	public Lancamento atualizar(Long id, Lancamento lancamento) {
@@ -47,6 +52,19 @@ public class LancamentoService {
 		BeanUtils.copyProperties(lancamento, lancamentoAtual);
 
 		return lancamento;
+	}
+	
+	private List<LancamentoConsultaDTO> filtro(List<LancamentoConsultaDTO> lancamentos, Filtro filtro) {
+		if(filtro.getMes() != null) {
+			lancamentos = lancamentos.stream().filter(lancamento -> lancamento.getMes().getCodigo() == filtro.getMes())
+					.collect(Collectors.toList());
+		}
+		if((filtro.getCategoria() != null)) {
+			lancamentos = lancamentos.stream().filter(lancamento -> lancamento.getIdCategoria() == filtro.getCategoria())
+					.collect(Collectors.toList());
+		}
+		return lancamentos;
+		
 	}
 
 }

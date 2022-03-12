@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.digitadasistemas.gestaogastos.controller.services.LancamentoService;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
+import com.digitadasistemas.gestaogastos.model.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 
 @RestController
@@ -41,8 +42,8 @@ public class LancamentoResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Lancamento>> listar(){
-		List<Lancamento> lancamentos = service.listar();
+	public ResponseEntity<List<LancamentoConsultaDTO>> listar(){
+		List<LancamentoConsultaDTO> lancamentos = service.listar();
 		return ResponseEntity.ok().body(lancamentos);
 	}
 	

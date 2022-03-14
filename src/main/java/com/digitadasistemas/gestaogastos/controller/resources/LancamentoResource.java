@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.digitadasistemas.gestaogastos.controller.services.LancamentoService;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
 import com.digitadasistemas.gestaogastos.model.Filtro;
-import com.digitadasistemas.gestaogastos.model.LancamentoConsultaDTO;
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 
 @RestController

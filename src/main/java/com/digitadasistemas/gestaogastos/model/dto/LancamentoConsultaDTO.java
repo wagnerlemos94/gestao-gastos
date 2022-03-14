@@ -1,4 +1,4 @@
-package com.digitadasistemas.gestaogastos.model;
+package com.digitadasistemas.gestaogastos.model.dto;
 
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;

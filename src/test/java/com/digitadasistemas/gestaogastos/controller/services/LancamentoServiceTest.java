@@ -4,16 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.digitadasistemas.gestaogastos.model.LancamentoConsultaDTO;
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
+import com.digitadasistemas.gestaogastos.model.entities.Role;
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
@@ -24,8 +27,10 @@ public class LancamentoServiceTest {
 	@Autowired
 	private LancamentoService service;
 	
-	public static final Categoria categoria = new Categoria(1L,"carro");
-	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com", "1234567931", "123456");
+	private static final Categoria categoria = new Categoria(1L,"carro");
+	private static Set<Role> roles = new HashSet<Role>();
+	
+	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com","123456", roles);
 	
 	private Lancamento lancamentoSalvo() {
 		return new Lancamento(null,TipoLancamento.DESPESA,"Alinhamento + Balanciamento",60.00,Mes.JANEITO,categoria,usuario);

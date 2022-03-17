@@ -56,7 +56,7 @@ public class Usuario implements UserDetails {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return senha;
 	}
 
 	@Override

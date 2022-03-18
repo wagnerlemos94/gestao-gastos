@@ -22,10 +22,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableAuthorizationServer
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
-//	private static final String[] PUBLIC_MATCHARS = {
-//		"/usuarios/**"	
-//	};
-//	
+	private static final String[] PUBLIC_MATCHARS = {
+		"/usuarios/**"	
+	};
+	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 //	
@@ -37,22 +37,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
-//	
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.cors().and().csrf().disable();
-//		http.authorizeHttpRequests()
-//		.antMatchers(PUBLIC_MATCHARS).permitAll()
-//		.anyRequest().authenticated();
-//		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//	}
-//	
-//	@Bean
-//	CorsConfigurationSource configurationSource() {
-//		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-//		return source;
-//	}
-//	
+	
+	protected void configure(HttpSecurity http) throws Exception {
+		http.cors().and().csrf().disable();
+		http.authorizeHttpRequests()
+		.antMatchers(PUBLIC_MATCHARS).permitAll()
+		.anyRequest().authenticated();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+	
+	@Bean
+	CorsConfigurationSource configurationSource() {
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		return source;
+	}
+	
 //	@Bean
 //	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 //		return new BCryptPasswordEncoder();

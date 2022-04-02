@@ -13,6 +13,7 @@ import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNao
 import com.digitadasistemas.gestaogastos.model.Filtro;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
+import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import com.digitadasistemas.gestaogastos.model.repositories.Lancamentorepository;
 
 @Service
@@ -36,12 +37,12 @@ public class LancamentoService {
 
 		List<LancamentoConsultaDTO>lancamentos = repository.findAll().stream()
 				.map(
-				lancamento -> new LancamentoConsultaDTO(lancamento)
+				lancamento -> new LancamentoConsultaDTO(lancamento)				
 				).collect(Collectors.toList());
 
 		lancamentos = filtro(lancamentos, filtro);
 		
-		return lancamentos;
+		return calculoValorTotal(lancamentos);
 	}
 
 
@@ -55,6 +56,7 @@ public class LancamentoService {
 	}
 	
 	private List<LancamentoConsultaDTO> filtro(List<LancamentoConsultaDTO> lancamentos, Filtro filtro) {
+		
 		if(filtro.getMes() != null) {
 			lancamentos = lancamentos.stream().filter(lancamento -> lancamento.getMes().getCodigo() == filtro.getMes())
 					.collect(Collectors.toList());
@@ -63,8 +65,28 @@ public class LancamentoService {
 			lancamentos = lancamentos.stream().filter(lancamento -> lancamento.getIdCategoria() == filtro.getCategoria())
 					.collect(Collectors.toList());
 		}
+		
 		return lancamentos;
 		
+	}
+	
+	private List<LancamentoConsultaDTO> calculoValorTotal(List<LancamentoConsultaDTO> lancamentos) {
+		LancamentoConsultaDTO lancamentosTotal = new LancamentoConsultaDTO();
+		lancamentosTotal.setTipo("TOTAL");
+		lancamentosTotal.setValor(0.0);
+		
+		lancamentos.forEach(
+				lancamento -> {
+					if(lancamento.getTipo() == TipoLancamento.RECEITA.getDescricao()) {
+						
+						lancamentosTotal.setValor(lancamentosTotal.getValor() + lancamento.getValor());
+					}else {
+						lancamentosTotal.setValor(lancamentosTotal.getValor() - lancamento.getValor());
+					}
+				});
+		lancamentos.add(lancamentosTotal);
+		
+		return lancamentos;
 	}
 
 }

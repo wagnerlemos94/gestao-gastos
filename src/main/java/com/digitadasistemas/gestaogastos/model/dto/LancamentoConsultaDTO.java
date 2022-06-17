@@ -32,4 +32,6 @@ public class LancamentoConsultaDTO {
 		this.usuario = lancamento.getUsuario().getNome();
 	}
 
+	public LancamentoConsultaDTO(LancamentoConsultaDTO lancamento) {
+	}
 }

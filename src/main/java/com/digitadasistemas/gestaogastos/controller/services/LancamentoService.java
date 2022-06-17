@@ -5,8 +5,10 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.digitadasistemas.gestaogastos.model.repositories.LancamentoSpec;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
@@ -35,13 +37,11 @@ public class LancamentoService {
 
 	public List<LancamentoConsultaDTO> listar(Filtro filtro) {
 
-		List<LancamentoConsultaDTO>lancamentos = repository.findAll().stream()
+		List<LancamentoConsultaDTO>lancamentos = repository.findAll(LancamentoSpec.comFiltro(filtro)).stream()
 				.map(
-				lancamento -> new LancamentoConsultaDTO(lancamento)				
+				lancamento -> new LancamentoConsultaDTO(lancamento)
 				).collect(Collectors.toList());
 
-		lancamentos = filtro(lancamentos, filtro);
-		
 		return calculoValorTotal(lancamentos);
 	}
 
@@ -54,22 +54,7 @@ public class LancamentoService {
 
 		return lancamento;
 	}
-	
-	private List<LancamentoConsultaDTO> filtro(List<LancamentoConsultaDTO> lancamentos, Filtro filtro) {
-		
-		if(filtro.getMes() != null) {
-			lancamentos = lancamentos.stream().filter(lancamento -> lancamento.getMes().getCodigo() == filtro.getMes())
-					.collect(Collectors.toList());
-		}
-		if((filtro.getCategoria() != null)) {
-			lancamentos = lancamentos.stream().filter(lancamento -> lancamento.getIdCategoria() == filtro.getCategoria())
-					.collect(Collectors.toList());
-		}
-		
-		return lancamentos;
-		
-	}
-	
+
 	private List<LancamentoConsultaDTO> calculoValorTotal(List<LancamentoConsultaDTO> lancamentos) {
 		LancamentoConsultaDTO lancamentosTotal = new LancamentoConsultaDTO();
 		lancamentosTotal.setTipo("TOTAL");

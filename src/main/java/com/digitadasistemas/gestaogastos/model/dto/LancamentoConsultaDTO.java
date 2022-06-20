@@ -15,7 +15,7 @@ public class LancamentoConsultaDTO {
 	private String tipo;
 	private String descricao;
 	private Double valor;	
-	private Mes mes;
+	private String mes;
 	@JsonIgnore
 	private Long idCategoria;
 	private String categoria;
@@ -26,12 +26,10 @@ public class LancamentoConsultaDTO {
 		this.tipo = lancamento.getTipo().getDescricao();
 		this.descricao = lancamento.getDescricao();
 		this.valor = lancamento.getValor();	
-		this.mes = lancamento.getMes();
+		this.mes = lancamento.getMes().getDescricao();
 		this.idCategoria = lancamento.getCategoria().getId();
 		this.categoria = lancamento.getCategoria().getNome();
 		this.usuario = lancamento.getUsuario().getNome();
 	}
 
-	public LancamentoConsultaDTO(LancamentoConsultaDTO lancamento) {
-	}
 }

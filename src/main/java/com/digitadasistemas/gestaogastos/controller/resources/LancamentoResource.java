@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.websocket.server.PathParam;
 
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoValoresDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +55,11 @@ public class LancamentoResource {
 	public ResponseEntity<Lancamento> atualizar(@RequestBody Lancamento lancamento,@PathVariable Long id){
 		lancamento = service.atualizar(id, lancamento);
 		return ResponseEntity.ok().body(lancamento);
+	}
+
+	@GetMapping("/valores")
+	public ResponseEntity<LancamentoValoresDTO> valores(@PathParam(value = "filtro") Filtro filtro){
+		return ResponseEntity.ok().body(service.valores(filtro));
 	}
 
 }

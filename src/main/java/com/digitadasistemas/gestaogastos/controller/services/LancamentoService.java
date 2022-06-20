@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoValoresDTO;
 import com.digitadasistemas.gestaogastos.model.repositories.LancamentoSpec;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,31 @@ public class LancamentoService {
 				.orElseThrow(() -> new ObjetoNaoEncontrado("Lancamento não encontrado id: " + id));
 	}
 
+	public LancamentoValoresDTO valores(Filtro filtro){
+		List<Lancamento> lancamentos = repository.findAll(LancamentoSpec.comFiltro(filtro));
+		return calculoValores(lancamentos);
+	}
+
+	private LancamentoValoresDTO calculoValores(List<Lancamento> lancamentos) {
+		LancamentoValoresDTO lancamentosTotal = new LancamentoValoresDTO();
+		lancamentosTotal.setRecebido(0.0);
+		lancamentosTotal.setGasto(0.0);
+		lancamentosTotal.setSaldo(0.0);
+
+		lancamentos.forEach(
+				lancamento -> {
+					if(lancamento.getTipo().equals(TipoLancamento.RECEITA)) {
+						lancamentosTotal.setRecebido(lancamentosTotal.getRecebido() + lancamento.getValor() );
+					}else if(lancamento.getTipo().equals(TipoLancamento.DESPESA)){
+						lancamentosTotal.setGasto(lancamentosTotal.getGasto() + lancamento.getValor());
+					}
+				});
+
+		lancamentosTotal.setSaldo(lancamentosTotal.getRecebido() - lancamentosTotal.getGasto());
+
+		return lancamentosTotal;
+	}
+
 	public List<LancamentoConsultaDTO> listar(Filtro filtro) {
 
 		List<LancamentoConsultaDTO>lancamentos = repository.findAll(LancamentoSpec.comFiltro(filtro)).stream()
@@ -62,8 +88,7 @@ public class LancamentoService {
 		
 		lancamentos.forEach(
 				lancamento -> {
-					if(lancamento.getTipo() == TipoLancamento.RECEITA.getDescricao()) {
-						
+					if(lancamento.getTipo().equals(TipoLancamento.RECEITA.getDescricao())) {
 						lancamentosTotal.setValor(lancamentosTotal.getValor() + lancamento.getValor());
 					}else {
 						lancamentosTotal.setValor(lancamentosTotal.getValor() - lancamento.getValor());

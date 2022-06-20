@@ -1,7 +1,13 @@
 package com.digitadasistemas.gestaogastos.model.enuns;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public enum Mes {
-	
+
+	ORDINAl(0,"ordinal"),
 	JANEITO(1,"JANEITO"),
 	FEVEREIRO(2,"FEVEREIRO"),
 	MARÇO(3,"MARÇO"),
@@ -21,14 +27,6 @@ public enum Mes {
 	Mes(int codigo,String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
-	}
-	
-	public int getCodigo() {
-		return codigo;
-	}
-
-	public String getDescricao() {
-		return descricao;
 	}
 	
 	public static Mes toEnum(Integer codigo) {

@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Filtro {
 	
 	private Integer mes;
-	private Long categoria;
+	private Integer categoria;
 
 }

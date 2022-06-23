@@ -8,6 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.digitadasistemas.gestaogastos.controller.resources.LancamentoResource;
+import com.digitadasistemas.gestaogastos.model.Filtro;
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoInput;
+import com.digitadasistemas.gestaogastos.model.repositories.Lancamentorepository;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +30,20 @@ public class LancamentoServiceTest {
 
 	@Autowired
 	private LancamentoService service;
+	@Autowired
+	private Lancamentorepository lancamentorepository;
 	
 	private static final Categoria categoria = new Categoria(1L,"carro");
 	private static Set<Role> roles = new HashSet<Role>();
 	
 	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com","123456", roles);
-	
-	private Lancamento lancamentoSalvo() {
-		return new Lancamento(null,TipoLancamento.DESPESA,"Alinhamento + Balanciamento",60.00,Mes.JANEITO,categoria,usuario);
-	}
-	
+	public static final Lancamento lancamento = new Lancamento(null,TipoLancamento.DESPESA,"Alinhamento + Balanciamento",60.00,Mes.JANEIRO,categoria,usuario);
+	public static final LancamentoInput lancamentoInput = new LancamentoInput(null,"Salário","Lancamento edição",Mes.JANEIRO.getDescricao(),TipoLancamento.DESPESA.getDescricao(),60.00,usuario);
+
 	@Order(1)
 	@Test
 	void deveSalvarLancamentoNaBaseDeDados() {
-		Lancamento lancamento = lancamentoSalvo();
-		lancamento = service.cadastrar(lancamento);
+		Lancamento lancamento = service.cadastrar(this.lancamentoInput);
 		
 		assertNotEquals(null, lancamento.getId());
 	}
@@ -48,8 +51,7 @@ public class LancamentoServiceTest {
 	@Order(2)
 	@Test
 	void deveBuscarUmaLancamento() {
-		Lancamento lancamento = lancamentoSalvo();
-		lancamento = service.cadastrar(lancamento);
+		Lancamento lancamento = service.cadastrar(lancamentoInput);
 		
 		assertNotEquals(null, lancamento);
 	}
@@ -57,13 +59,12 @@ public class LancamentoServiceTest {
 	@Order(3)
 	@Test
 	void deveListarTodasLancamentos() {
-		Lancamento lancamento1 =  lancamentoSalvo();
-		Lancamento lancamento2 =  lancamentoSalvo();;
+		Filtro filtro = new Filtro();
+
+		service.cadastrar(this.lancamentoInput);
+		service.cadastrar(this.lancamentoInput);
 		
-		service.cadastrar(lancamento1);
-		service.cadastrar(lancamento2);
-		
-		List<LancamentoConsultaDTO> listaLancamento = service.listar(null);
+		List<LancamentoConsultaDTO> listaLancamento = service.listar(filtro);
 			
 		assertTrue(listaLancamento.size() >= 2);	
 		
@@ -72,15 +73,14 @@ public class LancamentoServiceTest {
 	@Order(4)
 	@Test
 	void deveAtualizarUmaLancamento() {
-		Lancamento lancamento =  lancamentoSalvo();
-		Long id = service.cadastrar(lancamento).getId();
-		
-		lancamento = service.buscar(id);
-		
-		lancamento.setDescricao("Lancamento edição");
-		Lancamento LancamentoEditado = service.atualizar(id, lancamento);
-		System.out.println(LancamentoEditado);
-		
+		service.cadastrar(this.lancamentoInput);
+		Long id = lancamentorepository.findAll().get(0).getId();
+		LancamentoInput lancamentoInput = this.lancamentoInput;
+
+		service.atualizar(id, lancamentoInput);
+
+		Lancamento LancamentoEditado = service.buscar(id);
+
 		assertEquals("Lancamento edição", LancamentoEditado.getDescricao());
 	}
 	

@@ -32,4 +32,16 @@ public enum TipoLancamento {
 		}
 		throw new IllegalArgumentException("Id Inválido: " + codigo);
 	}
+
+	public static TipoLancamento toEnum(String descricao) {
+		if(descricao == null) {
+			return null;
+		}
+		for(TipoLancamento x : TipoLancamento.values()) {
+			if(descricao.equalsIgnoreCase(x.getDescricao())) {
+				return x;
+			}
+		}
+		throw new IllegalArgumentException("Descricão Inválido: " + descricao);
+	}
 }

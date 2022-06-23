@@ -2,19 +2,15 @@ package com.digitadasistemas.gestaogastos.controller.resources;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoInput;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoValoresDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.digitadasistemas.gestaogastos.controller.services.LancamentoService;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
@@ -27,18 +23,18 @@ import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 public class LancamentoResource {
 	
 	@Autowired
-	private LancamentoService service;
+	private LancamentoService lancamentoService;
 	
 	@PostMapping
-	public ResponseEntity<Lancamento> cadastrar(@RequestBody Lancamento lancamento){
-		lancamento = service.cadastrar(lancamento);
-		return ResponseEntity.ok().body(lancamento);
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void cadastrar(@Valid @RequestBody LancamentoInput lancamentoInput){
+		lancamentoService.cadastrar(lancamentoInput);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> buscar(@PathVariable Long id){
 		try {			
-			Lancamento lancamento = service.buscar(id);
+			Lancamento lancamento = lancamentoService.buscar(id);
 			return ResponseEntity.ok().body(lancamento);
 		} catch (ObjetoNaoEncontrado e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -47,19 +43,25 @@ public class LancamentoResource {
 	
 	@GetMapping
 	public ResponseEntity<List<LancamentoConsultaDTO>> listar(@PathParam(value = "filtro") Filtro filtro){
-		List<LancamentoConsultaDTO> lancamentos = service.listar(filtro);
+		List<LancamentoConsultaDTO> lancamentos = lancamentoService.listar(filtro);
 		return ResponseEntity.ok().body(lancamentos);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Lancamento> atualizar(@RequestBody Lancamento lancamento,@PathVariable Long id){
-		lancamento = service.atualizar(id, lancamento);
-		return ResponseEntity.ok().body(lancamento);
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizar(@Valid @RequestBody LancamentoInput lancamentoInput, @PathVariable Long id){
+		lancamentoService.atualizar(id, lancamentoInput);
 	}
 
 	@GetMapping("/valores")
 	public ResponseEntity<LancamentoValoresDTO> valores(@PathParam(value = "filtro") Filtro filtro){
-		return ResponseEntity.ok().body(service.valores(filtro));
+		return ResponseEntity.ok().body(lancamentoService.valores(filtro));
+	}
+
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable Long id){
+		lancamentoService.delete(id);
 	}
 
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 public enum Mes {
 
 	ORDINAl(0,"ordinal"),
-	JANEITO(1,"JANEITO"),
+	JANEIRO(1,"JANEIRO"),
 	FEVEREIRO(2,"FEVEREIRO"),
 	MARÇO(3,"MARÇO"),
 	ABRIL(4,"ABRIL"),
@@ -39,5 +39,17 @@ public enum Mes {
 			}
 		}
 		throw new IllegalArgumentException("Id Inválido: " + codigo);
+	}
+
+	public static Mes toEnum(String descricao) {
+		if(descricao == null) {
+			return null;
+		}
+		for(Mes x : Mes.values()) {
+			if(descricao.equalsIgnoreCase(x.getDescricao())) {
+				return x;
+			}
+		}
+		throw new IllegalArgumentException("Descricão Inválido: " + descricao);
 	}
 }

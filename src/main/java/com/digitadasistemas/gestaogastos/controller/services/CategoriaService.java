@@ -24,6 +24,11 @@ public class CategoriaService {
 		return repository.findById(id)
 				.orElseThrow(() -> new ObjetoNaoEncontrado("Categoria não encontrado id: " + id));
 	}
+
+	public Categoria buscar(String nome) {
+		return repository.findByNome(nome)
+				.orElseThrow(() -> new ObjetoNaoEncontrado("Categoria não encontrado nome: " + nome));
+	}
 	
 	public List<Categoria> listar(){
 		return repository.findAll();

@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsulta;
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
+import com.digitadasistemas.gestaogastos.model.repositories.UsuarioRepository;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +21,15 @@ public class CategoriaServiceTest {
 
 	@Autowired
 	private CategoriaService service;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
+	private static final CategoriaInput categoriaInput = new CategoriaInput(null,"Categoria de teste");
 	
 	@Order(1)
 	@Test
 	void deveSalvarCategoriaNaBaseDeDados() {
-		Categoria categoria =  new Categoria(null, "Categoria de teste");
-		categoria = service.cadastrar(categoria);
+		Categoria categoria = service.cadastrar(categoriaInput);
 		
 		assertNotEquals(null, categoria.getId());
 	}
@@ -31,8 +37,7 @@ public class CategoriaServiceTest {
 	@Order(2)
 	@Test
 	void deveBuscarUmaCategoria() {
-		Categoria categoria =  new Categoria(null, "teste categoria");
-		categoria = service.cadastrar(categoria);
+		Categoria categoria = service.cadastrar(categoriaInput);
 		
 		assertNotEquals(null, categoria);
 	}
@@ -40,13 +45,13 @@ public class CategoriaServiceTest {
 	@Order(3)
 	@Test
 	void deveListarTodasCategorias() {
-		Categoria categoria1 =  new Categoria(null, "categoria1");
-		Categoria categoria2 =  new Categoria(null, "categoria2");
+		CategoriaInput categoria1 =  new CategoriaInput(null, "categoria1");
+		CategoriaInput categoria2 =  new CategoriaInput(null, "categoria2");
 		
 		service.cadastrar(categoria1);
 		service.cadastrar(categoria2);
 		
-		List<Categoria> listaCategoria = service.listar();
+		List<CategoriaConsulta> listaCategoria = service.listar();
 		
 		assertTrue(listaCategoria.size() > 2);	
 		
@@ -55,13 +60,10 @@ public class CategoriaServiceTest {
 	@Order(4)
 	@Test
 	void deveAtualizarUmaCategoria() {
-		Categoria categoria =  new Categoria(null, "categoria");
-		Long id = service.cadastrar(categoria).getId();
-		
-		categoria = service.buscar(id);
-		
-		categoria.setNome("categoria edição");
-		Categoria categoriaEditada = service.atualizar(categoria, id);
+		CategoriaInput categoriaInput =  new CategoriaInput(null, "categoria edição");
+		Long id = service.cadastrar(categoriaInput).getId();
+
+		Categoria categoriaEditada = service.atualizar(categoriaInput, id);
 		
 		assertEquals("categoria edição", categoriaEditada.getNome());
 	}

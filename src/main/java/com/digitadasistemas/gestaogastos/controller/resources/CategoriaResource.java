@@ -2,19 +2,17 @@ package com.digitadasistemas.gestaogastos.controller.resources;
 
 import java.util.List;
 
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsulta;
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.digitadasistemas.gestaogastos.controller.services.CategoriaService;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/categorias")
@@ -24,9 +22,9 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@PostMapping
-	public ResponseEntity<Categoria> cadastrar(@RequestBody Categoria categoria){
-		categoria = service.cadastrar(categoria);
-		return ResponseEntity.ok().body(categoria);
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void cadastrar(@RequestBody @Valid CategoriaInput categoriaInput){
+		service.cadastrar(categoriaInput);
 	}
 	
 	@GetMapping("/{id}")
@@ -36,21 +34,21 @@ public class CategoriaResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>> listar(){
-		List<Categoria> categorias = service.listar();
-		return ResponseEntity.ok().body(categorias);
+	@ResponseStatus(HttpStatus.OK)
+	public List<CategoriaConsulta> listar(){
+		return service.listar();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Categoria> atualizar(@RequestBody Categoria categoria,@PathVariable Long id){
-		categoria = service.atualizar(categoria, id);
-		return ResponseEntity.ok().body(categoria);
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizar(@RequestBody @Valid CategoriaInput categoriaCategoriaInput,@PathVariable Long id){
+		service.atualizar(categoriaCategoriaInput, id);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletar(@PathVariable Long id){
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deletar(@PathVariable Long id){
 		service.deletar(id);
-		return ResponseEntity.noContent().build();
 	}
 
 }

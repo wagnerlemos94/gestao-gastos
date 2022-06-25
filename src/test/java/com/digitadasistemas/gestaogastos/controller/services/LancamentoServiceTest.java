@@ -8,8 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.digitadasistemas.gestaogastos.controller.resources.LancamentoResource;
-import com.digitadasistemas.gestaogastos.model.Filtro;
+import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoInput;
 import com.digitadasistemas.gestaogastos.model.repositories.Lancamentorepository;
 import org.junit.jupiter.api.Order;
@@ -59,7 +58,7 @@ public class LancamentoServiceTest {
 	@Order(3)
 	@Test
 	void deveListarTodasLancamentos() {
-		Filtro filtro = new Filtro();
+		LancamentoFiltro filtro = new LancamentoFiltro();
 
 		service.cadastrar(this.lancamentoInput);
 		service.cadastrar(this.lancamentoInput);

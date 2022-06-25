@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.digitadasistemas.gestaogastos.controller.services.LancamentoService;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
-import com.digitadasistemas.gestaogastos.model.Filtro;
+import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 
@@ -42,7 +42,7 @@ public class LancamentoResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<LancamentoConsultaDTO>> listar(@PathParam(value = "filtro") Filtro filtro){
+	public ResponseEntity<List<LancamentoConsultaDTO>> listar(@PathParam(value = "filtro") LancamentoFiltro filtro){
 		List<LancamentoConsultaDTO> lancamentos = lancamentoService.listar(filtro);
 		return ResponseEntity.ok().body(lancamentos);
 	}
@@ -54,7 +54,7 @@ public class LancamentoResource {
 	}
 
 	@GetMapping("/valores")
-	public ResponseEntity<LancamentoValoresDTO> valores(@PathParam(value = "filtro") Filtro filtro){
+	public ResponseEntity<LancamentoValoresDTO> valores(@PathParam(value = "filtro") LancamentoFiltro filtro){
 		return ResponseEntity.ok().body(lancamentoService.valores(filtro));
 	}
 

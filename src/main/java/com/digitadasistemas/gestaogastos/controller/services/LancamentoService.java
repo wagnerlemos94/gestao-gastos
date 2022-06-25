@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoInput;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoValoresDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
-import com.digitadasistemas.gestaogastos.model.Filtro;
+import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
@@ -27,10 +28,15 @@ public class LancamentoService {
 	private Lancamentorepository lancamentorepository;
 	@Autowired
 	private CategoriaService categoriaService;
+	@Autowired
+	private UsuarioService usuarioService;
+	@Autowired
+	private GestaoSecurity gestaoSecurity;
 
 	@Transactional
 	public Lancamento cadastrar(LancamentoInput lancamentoInput) {
 		Lancamento lancamento = LancamentoInput.to(lancamentoInput);
+		lancamento.setUsuario(gestaoSecurity.getUsuario());
 		lancamento.setCategoria(categoriaService.buscar(lancamentoInput.getCategoria()));
 		return lancamentorepository.save(lancamento);
 	}
@@ -40,8 +46,9 @@ public class LancamentoService {
 				.orElseThrow(() -> new ObjetoNaoEncontrado("Lancamento não encontrado id: " + id));
 	}
 
-	public LancamentoValoresDTO valores(Filtro filtro){
-		List<Lancamento> lancamentos = lancamentorepository.findAll(LancamentoSpec.comFiltro(filtro));
+	public LancamentoValoresDTO valores(LancamentoFiltro filtro){
+		filtro.setUsuario(gestaoSecurity.getUsuario());
+		List<Lancamento> lancamentos = lancamentorepository.findAll(com.digitadasistemas.gestaogastos.model.repositories.LancamentoSpec.comFiltro(filtro));
 		return calculoValores(lancamentos);
 	}
 
@@ -65,8 +72,9 @@ public class LancamentoService {
 		return lancamentosTotal;
 	}
 
-	public List<LancamentoConsultaDTO> listar(Filtro filtro) {
+	public List<LancamentoConsultaDTO> listar(LancamentoFiltro filtro) {
 
+		filtro.setUsuario(gestaoSecurity.getUsuario());
 		List<LancamentoConsultaDTO>lancamentos = lancamentorepository.findAll(LancamentoSpec.comFiltro(filtro)).stream()
 				.map(
 				lancamento -> new LancamentoConsultaDTO(lancamento)
@@ -84,6 +92,7 @@ public class LancamentoService {
 
 		Lancamento lancamento = LancamentoInput.to(lancamentoInput);
 		lancamento.setCategoria(categoria);
+		lancamento.setUsuario(usuarioService.buscarPorEmail(gestaoSecurity.getUsuarioLogado().getUsuario()));
 
 		BeanUtils.copyProperties(lancamento, lancamentoAtual);
 		lancamentorepository.save(lancamento);

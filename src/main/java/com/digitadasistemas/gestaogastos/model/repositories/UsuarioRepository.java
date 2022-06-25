@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
 
+import java.util.Optional;
+
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
-	Usuario findByEmail(String email);
+	Optional<Usuario> findByEmail(String email);
 }

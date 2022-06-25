@@ -16,39 +16,41 @@ import com.digitadasistemas.gestaogastos.model.repositories.UsuarioRepository;
 public class UsuarioService implements UserDetailsService{
 
 	@Autowired
-	private UsuarioRepository repository;
+	private UsuarioRepository usuarioRepository;
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		return usuarioRepository.findByEmail(email).
+				orElseThrow(() -> new ObjetoNaoEncontrado("Usuario ou Senha inválidos: "));
+	}
 	
 	public Usuario cadastrar(Usuario usuario) {
 		usuario.setId(null);
-		return repository.save(usuario);
+		return usuarioRepository.save(usuario);
 	}
 	
 	public Usuario buscar(Long id) {
-		return repository.findById(id)
+		return usuarioRepository.findById(id)
 				.orElseThrow(() -> new ObjetoNaoEncontrado("Usuario não encontrado id: " + id));
 	}
 	
 	public List<Usuario> listar(){
-		return repository.findAll();
+		return usuarioRepository.findAll();
 	}
 	
 	public Usuario atualizar(Usuario usuario, Long id) {
 		usuario.setId(id);
-		return repository.save(usuario);
+		return usuarioRepository.save(usuario);
 	}
 	
 	public void deletar(Long id) {
-		repository.deleteById(id);
+		usuarioRepository.deleteById(id);
 	}
 
 	public Usuario buscarPorEmail(String email) {
-		return repository.findByEmail(email);
+		return usuarioRepository.findByEmail(email).
+				orElseThrow(() -> new ObjetoNaoEncontrado("Usuario ou Senha inválidos: "));
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		System.out.println(repository.findByEmail(email));
-		return repository.findByEmail(email);
-	}
 	
 }

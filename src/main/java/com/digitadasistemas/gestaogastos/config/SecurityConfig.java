@@ -23,15 +23,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private static final String[] PUBLIC_MATCHARS = {
-		"/usuarios/**"	
+		"/usuarios/**",
+		"/token/**"
 	};
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-//	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-//
+
 	@Override
 	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

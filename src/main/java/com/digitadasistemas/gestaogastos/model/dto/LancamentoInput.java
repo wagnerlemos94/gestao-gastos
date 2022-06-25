@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Locale;
 
 @Getter
 @Setter
@@ -33,7 +34,7 @@ public class LancamentoInput {
     public static Lancamento to(LancamentoInput lancamentoInput){
         Lancamento lancamento = new Lancamento();
         lancamento.setId(lancamentoInput.getId());
-        lancamento.setDescricao(lancamentoInput.getDescricao());
+        lancamento.setDescricao(lancamentoInput.getDescricao().toUpperCase());
         lancamento.setValor(lancamentoInput.getValor());
         lancamento.setTipo(TipoLancamento.toEnum(lancamentoInput.getTipo()).getCodigo());
         lancamento.setMes(Mes.toEnum(lancamentoInput.getMes()).getCodigo());

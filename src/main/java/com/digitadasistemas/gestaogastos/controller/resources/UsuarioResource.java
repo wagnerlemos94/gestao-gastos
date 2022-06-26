@@ -38,7 +38,7 @@ public class UsuarioResource {
 	
 	@GetMapping("/search")
 	public ResponseEntity<Usuario> buscarPorEmail(@RequestParam String email){
-		Usuario usuario = service.buscarPorEmail(email);
+		Usuario usuario = service.buscarPorLogin(email);
 		return ResponseEntity.ok().body(usuario);
 	}
 	

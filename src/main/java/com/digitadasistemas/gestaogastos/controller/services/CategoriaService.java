@@ -31,7 +31,7 @@ public class CategoriaService {
 	public Categoria cadastrar(CategoriaInput categoriaInput) {
 		Categoria categoria = CategoriaInput.to(categoriaInput);
 		categoria.setId(null);
-		categoria.setUsuario(usuarioService.buscarPorEmail(gestaoSecurity.getUsuarioLogado().getUsuario()));
+		categoria.setUsuario(gestaoSecurity.getUsuario());
 		return repository.save(categoria);
 	}
 	
@@ -41,7 +41,7 @@ public class CategoriaService {
 	}
 
 	public Categoria buscar(String nome) {
-		return repository.findByNome(nome)
+		return repository.findByNome(nome, gestaoSecurity.getUsuario().getId())
 				.orElseThrow(() -> new ObjetoNaoEncontrado("Categoria não encontrado nome: " + nome));
 	}
 	
@@ -56,7 +56,7 @@ public class CategoriaService {
 		Categoria categoriaAtual = buscar(id);
 
 		Categoria categoria = CategoriaInput.to(categoriaInput);
-		categoria.setUsuario(usuarioService.buscarPorEmail(gestaoSecurity.getUsuarioLogado().getUsuario()));
+		categoria.setUsuario(gestaoSecurity.getUsuario());
 
 		BeanUtils.copyProperties(categoria, categoriaAtual);
 		return repository.save(categoria);

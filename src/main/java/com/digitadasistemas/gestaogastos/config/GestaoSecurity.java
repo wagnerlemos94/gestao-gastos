@@ -24,6 +24,6 @@ public class GestaoSecurity {
     }
 
     public Usuario getUsuario(){
-        return usuarioService.buscarPorEmail(getUsuarioLogado().getUsuario());
+        return usuarioService.buscarPorLogin(getUsuarioLogado().getUsuario());
     }
 }

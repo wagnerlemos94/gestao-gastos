@@ -1,0 +1,1 @@
+alter table usuario RENAME COLUMN email TO login;

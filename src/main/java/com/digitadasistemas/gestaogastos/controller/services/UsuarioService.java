@@ -19,8 +19,8 @@ public class UsuarioService implements UserDetailsService{
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		return usuarioRepository.findByEmail(email).
+	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+		return usuarioRepository.findByLogin(login).
 				orElseThrow(() -> new ObjetoNaoEncontrado("Usuario ou Senha inválidos: "));
 	}
 	
@@ -47,8 +47,8 @@ public class UsuarioService implements UserDetailsService{
 		usuarioRepository.deleteById(id);
 	}
 
-	public Usuario buscarPorEmail(String email) {
-		return usuarioRepository.findByEmail(email).
+	public Usuario buscarPorLogin(String login) {
+		return usuarioRepository.findByLogin(login).
 				orElseThrow(() -> new ObjetoNaoEncontrado("Usuario ou Senha inválidos: "));
 	}
 

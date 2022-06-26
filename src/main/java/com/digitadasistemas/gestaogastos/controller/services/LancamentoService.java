@@ -92,7 +92,7 @@ public class LancamentoService {
 
 		Lancamento lancamento = LancamentoInput.to(lancamentoInput);
 		lancamento.setCategoria(categoria);
-		lancamento.setUsuario(usuarioService.buscarPorEmail(gestaoSecurity.getUsuarioLogado().getUsuario()));
+		lancamento.setUsuario(gestaoSecurity.getUsuario());
 
 		BeanUtils.copyProperties(lancamento, lancamentoAtual);
 		lancamentorepository.save(lancamento);

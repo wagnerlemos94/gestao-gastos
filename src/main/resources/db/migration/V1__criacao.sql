@@ -1,0 +1,10 @@
+drop table if exists categoria;
+drop table if exists lancamento;
+drop table if exists role;
+drop table if exists usuario;
+drop table if exists usuario_roles;
+create table categoria (id bigint not null auto_increment, nome varchar(255) not null, usuario_id bigint not null, primary key (id)) engine=InnoDB;
+create table lancamento (id bigint not null auto_increment, descricao varchar(255) not null, mes integer not null, tipo integer not null, valor double precision not null, categoria_id bigint not null, usuario_id bigint not null, primary key (id)) engine=InnoDB;
+create table role (id bigint not null auto_increment, role_nome varchar(255), primary key (id)) engine=InnoDB;
+create table usuario (id bigint not null auto_increment, email varchar(255) not null, nome varchar(255) not null, senha varchar(255) not null, primary key (id)) engine=InnoDB;
+create table usuario_roles (usuario_id bigint not null, roles_id bigint not null, primary key (usuario_id, roles_id)) engine=InnoDB;

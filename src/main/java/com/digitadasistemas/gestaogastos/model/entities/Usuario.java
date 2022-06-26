@@ -40,7 +40,7 @@ public class Usuario implements UserDetails {
 	@Column(nullable = false)
 	private String nome;
 	@Column(nullable = false, unique = true)
-	private String email;
+	private String login;
 	@Column(nullable = false)
 	private String senha;
 
@@ -61,7 +61,7 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;
+		return login;
 	}
 
 	@Override

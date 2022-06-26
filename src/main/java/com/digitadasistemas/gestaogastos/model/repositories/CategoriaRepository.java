@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 
-    @Query(value = "SELECT * FROM categoria c WHERE UPPER(c.nome) = UPPER (:nome)", nativeQuery = true)
-    Optional<Categoria> findByNome(String nome);
+    @Query(value = "SELECT * FROM categoria c WHERE UPPER(c.nome) = UPPER (:nome) and c.usuario_id = :usuarioId", nativeQuery = true)
+    Optional<Categoria> findByNome(String nome, Long usuarioId);
 
     List<Categoria> findAll(Specification<Categoria> comFiltro);
 

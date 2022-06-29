@@ -64,4 +64,10 @@ public class LancamentoResource {
 		lancamentoService.delete(id);
 	}
 
+	@GetMapping("/heroku")
+	@ResponseStatus(HttpStatus.OK)
+	public void heroku(){
+		System.out.println("Teste de chamada pra o servidor do heroko não hibernar");
+	}
+
 }

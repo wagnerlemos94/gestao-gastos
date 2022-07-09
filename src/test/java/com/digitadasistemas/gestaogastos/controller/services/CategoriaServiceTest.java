@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsulta;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
+import com.digitadasistemas.gestaogastos.model.entities.Grupo;
 import com.digitadasistemas.gestaogastos.model.repositories.UsuarioRepository;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class CategoriaServiceTest {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	private static final CategoriaInput categoriaInput = new CategoriaInput(null,"Categoria de teste");
+	private static final CategoriaInput categoriaInput = new CategoriaInput(null,1L);
 	
 	@Order(1)
 	@Test
@@ -45,8 +46,8 @@ public class CategoriaServiceTest {
 	@Order(3)
 	@Test
 	void deveListarTodasCategorias() {
-		CategoriaInput categoria1 =  new CategoriaInput(null, "categoria1");
-		CategoriaInput categoria2 =  new CategoriaInput(null, "categoria2");
+		CategoriaInput categoria1 =  new CategoriaInput(null, 1L);
+		CategoriaInput categoria2 =  new CategoriaInput(null, 2L);
 		
 		service.cadastrar(categoria1);
 		service.cadastrar(categoria2);
@@ -60,7 +61,7 @@ public class CategoriaServiceTest {
 	@Order(4)
 	@Test
 	void deveAtualizarUmaCategoria() {
-		CategoriaInput categoriaInput =  new CategoriaInput(null, "categoria edição");
+		CategoriaInput categoriaInput =  new CategoriaInput(null, 1L);
 		Long id = service.cadastrar(categoriaInput).getId();
 
 		Categoria categoriaEditada = service.atualizar(categoriaInput, id);

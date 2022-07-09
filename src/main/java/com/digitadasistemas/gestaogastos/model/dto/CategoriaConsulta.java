@@ -10,10 +10,12 @@ public class CategoriaConsulta {
 
     private Long id;
     private String nome;
+    private String grupo;
 
     public CategoriaConsulta(Categoria categoria){
         this.id = categoria.getId();
         this.nome = categoria.getNome();
+        this.grupo = categoria.getGrupo().getNome();
     }
 
 }

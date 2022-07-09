@@ -1,0 +1,1 @@
+ALTER TABLE categoria ADD FOREIGN KEY (grupo_id) REFERENCES grupo(id);

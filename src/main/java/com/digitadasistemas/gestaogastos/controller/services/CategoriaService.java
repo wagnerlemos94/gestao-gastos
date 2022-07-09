@@ -1,22 +1,19 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
+import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsulta;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
-import com.digitadasistemas.gestaogastos.model.dto.LancamentoInput;
-import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
+import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.filtro.CategoriaFiltro;
+import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaSpec;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
-import com.digitadasistemas.gestaogastos.model.entities.Categoria;
-import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoriaService {
@@ -24,13 +21,10 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repository;
 	@Autowired
-	private UsuarioService usuarioService;
-	@Autowired
 	private GestaoSecurity gestaoSecurity;
 	
 	public Categoria cadastrar(CategoriaInput categoriaInput) {
 		Categoria categoria = CategoriaInput.to(categoriaInput);
-		categoria.setId(null);
 		categoria.setUsuario(gestaoSecurity.getUsuario());
 		return repository.save(categoria);
 	}

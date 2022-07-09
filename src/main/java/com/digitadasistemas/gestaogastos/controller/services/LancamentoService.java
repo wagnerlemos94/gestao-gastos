@@ -29,8 +29,6 @@ public class LancamentoService {
 	@Autowired
 	private CategoriaService categoriaService;
 	@Autowired
-	private UsuarioService usuarioService;
-	@Autowired
 	private GestaoSecurity gestaoSecurity;
 
 	@Transactional

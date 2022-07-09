@@ -19,6 +19,9 @@ public class Categoria {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario usuario;
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Grupo grupo;
 
 	public Categoria (Long id, String nome){
 		this.id = id;

@@ -29,4 +29,10 @@ public class GrupoResouce {
         return grupoService.buscar();
     }
 
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizar(@Valid @RequestBody GrupoInputDTO grupoInputDTO, @PathVariable Long id){
+        grupoService.atualizar(id, grupoInputDTO);
+    }
+
 }

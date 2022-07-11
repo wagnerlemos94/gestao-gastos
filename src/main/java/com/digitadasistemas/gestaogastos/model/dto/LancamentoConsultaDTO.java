@@ -16,7 +16,6 @@ public class LancamentoConsultaDTO {
 	private String descricao;
 	private Double valor;	
 	private String mes;
-	@JsonIgnore
 	private Long idCategoria;
 	private String categoria;
 	private String usuario;

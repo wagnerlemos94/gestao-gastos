@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CategoriaInput {
 
+    private Long id;
     @NotBlank(message = "Campo descrição é Obrigatório")
     private String nome;
     @NotNull(message = "Campo Grupo é Obrigatório")
@@ -24,6 +25,7 @@ public class CategoriaInput {
         Categoria categoria = new Categoria();
         Grupo grupo = new Grupo();
         grupo.setId(categoriaInput.getGrupo());
+        categoria.setId(categoriaInput.getId());
         categoria.setNome(categoriaInput.getNome().toUpperCase());
         categoria.setGrupo(grupo);
         return categoria;

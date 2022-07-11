@@ -1,5 +1,6 @@
 package com.digitadasistemas.gestaogastos.model.dto;
 
+import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
@@ -19,20 +20,23 @@ import java.util.Locale;
 public class LancamentoInput {
 
     private final Long id;
-    @NotBlank(message = "O campo Categoria é Obrigatório")
-    private final String categoria;
+    @NotNull(message = "O campo Categoria é Obrigatório")
+    private final Long categoria;
     @NotBlank(message = "O campo Descrição é Obrigatório")
     private final String descricao;
-    @NotBlank(message = "O campo Mês é Obrigatório")
-    private final String mes;
-    @NotBlank(message = "O campo Tipo é Obrigatório")
-    private final String tipo;
+    @NotNull(message = "O campo Mês é Obrigatório")
+    private final Integer mes;
+    @NotNull(message = "O campo Tipo é Obrigatório")
+    private final Integer tipo;
     @NotNull(message = "O campo Valor é Obrigatório")
     private final Double valor;
     private final Usuario usuario;
 
     public static Lancamento to(LancamentoInput lancamentoInput){
         Lancamento lancamento = new Lancamento();
+        Categoria categoria = new Categoria();
+        categoria.setId(lancamentoInput.getCategoria());
+        lancamento.setCategoria(categoria);
         lancamento.setId(lancamentoInput.getId());
         lancamento.setDescricao(lancamentoInput.getDescricao().toUpperCase());
         lancamento.setValor(lancamentoInput.getValor());

@@ -1,10 +1,12 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
 import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
+import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
 import com.digitadasistemas.gestaogastos.model.dto.GrupoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.GrupoInputDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Grupo;
 import com.digitadasistemas.gestaogastos.model.repositories.GrupoRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,20 @@ public class GrupoService {
     @Transactional
     public void cadastro(GrupoInputDTO grupoInputDTO){
         Grupo grupo = GrupoInputDTO.to(grupoInputDTO);
+        grupo.setUsuario(gestaoSecurity.getUsuario());
+        grupoRepository.save(grupo);
+    }
+
+    public Grupo buscar(Long id) {
+        return grupoRepository.findById(id)
+                .orElseThrow(() -> new ObjetoNaoEncontrado("Grupo não encontrado id: " + id));
+    }
+
+    @Transactional
+    public void atualizar(Long id, GrupoInputDTO grupoInputDTO) {
+        buscar(id);
+        Grupo grupo = GrupoInputDTO.to(grupoInputDTO);
+        grupo.setId(id);
         grupo.setUsuario(gestaoSecurity.getUsuario());
         grupoRepository.save(grupo);
     }

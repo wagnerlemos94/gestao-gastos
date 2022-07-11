@@ -25,7 +25,7 @@ public class CategoriaServiceTest {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	private static final CategoriaInput categoriaInput = new CategoriaInput(null,1L);
+	private static final CategoriaInput categoriaInput = new CategoriaInput(null,"teste",1L);
 	
 	@Order(1)
 	@Test
@@ -46,8 +46,8 @@ public class CategoriaServiceTest {
 	@Order(3)
 	@Test
 	void deveListarTodasCategorias() {
-		CategoriaInput categoria1 =  new CategoriaInput(null, 1L);
-		CategoriaInput categoria2 =  new CategoriaInput(null, 2L);
+		CategoriaInput categoria1 =  categoriaInput;
+		CategoriaInput categoria2 =  new CategoriaInput(null,"ttt", 2L);
 		
 		service.cadastrar(categoria1);
 		service.cadastrar(categoria2);
@@ -61,7 +61,7 @@ public class CategoriaServiceTest {
 	@Order(4)
 	@Test
 	void deveAtualizarUmaCategoria() {
-		CategoriaInput categoriaInput =  new CategoriaInput(null, 1L);
+		CategoriaInput categoriaInput =  new CategoriaInput(null, "aaa", 1L);
 		Long id = service.cadastrar(categoriaInput).getId();
 
 		Categoria categoriaEditada = service.atualizar(categoriaInput, id);

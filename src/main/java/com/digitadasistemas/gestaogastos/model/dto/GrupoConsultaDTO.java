@@ -10,11 +10,11 @@ import java.util.List;
 public class GrupoConsultaDTO {
 
     private Long id;
-    private String descricao;
+    private String nome;
 
     public GrupoConsultaDTO(Grupo grupo){
         this.id = grupo.getId();
-        this.descricao = grupo.getNome();
+        this.nome = grupo.getNome();
     }
 
 }

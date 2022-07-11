@@ -37,7 +37,7 @@ public class LancamentoServiceTest {
 	
 	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com","123456", roles);
 	public static final Lancamento lancamento = new Lancamento(null,TipoLancamento.DESPESA,"Alinhamento + Balanciamento",60.00,Mes.JANEIRO,categoria,usuario);
-	public static final LancamentoInput lancamentoInput = new LancamentoInput(null,"Salário","Lancamento edição",Mes.JANEIRO.getDescricao(),TipoLancamento.DESPESA.getDescricao(),60.00,usuario);
+	public static final LancamentoInput lancamentoInput = new LancamentoInput(null,categoria.getId(),"Lancamento edição",Mes.JANEIRO.getCodigo(),TipoLancamento.DESPESA.getCodigo(),60.00,usuario);
 
 	@Order(1)
 	@Test

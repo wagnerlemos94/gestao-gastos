@@ -1,6 +1,5 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +18,13 @@ import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNao
 import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
-import com.digitadasistemas.gestaogastos.model.repositories.Lancamentorepository;
+import com.digitadasistemas.gestaogastos.model.repositories.LancamentoRepository;
 
 @Service
 public class LancamentoService {
 
 	@Autowired
-	private Lancamentorepository lancamentorepository;
+	private LancamentoRepository lancamentorepository;
 	@Autowired
 	private CategoriaService categoriaService;
 	@Autowired
@@ -75,29 +74,18 @@ public class LancamentoService {
 	public List<LancamentoConsultaDTO> listar(LancamentoFiltro filtro) {
 
 		filtro.setUsuario(gestaoSecurity.getUsuario());
-		List<Categoria> categorias = categoriaRepository.findAll();
 		List<LancamentoConsultaDTO>lancamentos = lancamentorepository.findAll(LancamentoSpec.comFiltro(filtro)).stream()
 				.map(
 				lancamento -> new LancamentoConsultaDTO(lancamento)
 				).collect(Collectors.toList());
 
-		List<LancamentoConsultaDTO> novaListaLancamentos = new ArrayList<>();
-
-		for (int i=0; i<lancamentos.size(); i++){
-			Categoria categoria = new Categoria();
-			categoria.setId(lancamentos.get(i).getIdCategoria());
-//			System.out.println(categorias.contains(categoria) && lancamentos.get(i).getTipo().equals(TipoLancamento.RECEITA.getDescricao()));
-//			System.out.println(categorias.contains(categoria));
-//			System.out.println(categorias.contains(lancamentos.get(i).getTipo().equals(TipoLancamento.RECEITA.getDescricao())));
-			if(categorias.contains(categoria) && lancamentos.get(i).getTipo().equals(TipoLancamento.RECEITA.getDescricao())){
-				lancamentos.get(i).setValor(lancamentos.get(i).getValor() + lancamentos.get(i + 1).getValor());
-//				novaListaLancamentos.add(lancamentos.get(i));
-			}else if(categorias.contains(categoria) && lancamentos.get(i).getTipo().equals(TipoLancamento.RECEITA.getDescricao())){
-				lancamentos.get(i).setValor(lancamentos.get(i).getValor() + lancamentos.get(i + 1).getValor());
-//				novaListaLancamentos.add(lancamentos.get(i));
-			}
-		}
 		return calculoValorTotal(lancamentos);
+	}
+
+	public List<LancamentoConsultaValoresDTO> listarAgrupado(LancamentoFiltro filtro) {
+		filtro.setUsuario(gestaoSecurity.getUsuario());
+		return lancamentorepository.buscarTodos();
+
 	}
 
 	@Transactional

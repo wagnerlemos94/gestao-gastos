@@ -5,18 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoInput;
-import com.digitadasistemas.gestaogastos.model.repositories.Lancamentorepository;
+import com.digitadasistemas.gestaogastos.model.repositories.LancamentoRepository;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.entities.Role;
@@ -30,7 +28,7 @@ public class LancamentoServiceTest {
 	@Autowired
 	private LancamentoService service;
 	@Autowired
-	private Lancamentorepository lancamentorepository;
+	private LancamentoRepository lancamentorepository;
 	
 	private static final Categoria categoria = new Categoria(1L,"carro");
 	private static Set<Role> roles = new HashSet<Role>();

@@ -1,0 +1,1 @@
+ALTER TABLE lancamento ADD FOREIGN KEY (usuario_id) REFERENCES usuario(id);

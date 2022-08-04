@@ -1,0 +1,1 @@
+ALTER TABLE lancamento ADD FOREIGN KEY (categoria_id) REFERENCES categoria(id);

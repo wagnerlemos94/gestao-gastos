@@ -41,11 +41,17 @@ public class LancamentoResource {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<List<LancamentoConsultaDTO>> listar(@PathParam(value = "filtro") LancamentoFiltro filtro){
 		List<LancamentoConsultaDTO> lancamentos = lancamentoService.listar(filtro);
 		return ResponseEntity.ok().body(lancamentos);
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "agrupados")
+	public List<LancamentoConsultaValoresDTO> listarAgrupado(@PathParam(value = "filtro") LancamentoFiltro filtro) {
+		return lancamentoService.listarAgrupado(filtro);
 	}
 	
 	@PutMapping("/{id}")

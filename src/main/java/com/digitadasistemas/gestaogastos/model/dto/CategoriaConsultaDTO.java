@@ -6,14 +6,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoriaConsulta {
+public class CategoriaConsultaDTO {
 
     private Long id;
     private String nome;
     private String grupo;
     private Long grupoId;
 
-    public CategoriaConsulta(Categoria categoria){
+    public CategoriaConsultaDTO(Categoria categoria){
         this.id = categoria.getId();
         this.nome = categoria.getNome();
         this.grupo = categoria.getGrupo().getNome();

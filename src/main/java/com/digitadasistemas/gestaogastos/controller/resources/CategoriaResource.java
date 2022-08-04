@@ -2,7 +2,7 @@ package com.digitadasistemas.gestaogastos.controller.resources;
 
 import java.util.List;
 
-import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsulta;
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class CategoriaResource {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<CategoriaConsulta> listar(){
+	public List<CategoriaConsultaDTO> listar(){
 		return service.listar();
 	}
 	

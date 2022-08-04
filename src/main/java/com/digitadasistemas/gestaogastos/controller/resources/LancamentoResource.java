@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaValoresDTO;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoInput;
 import com.digitadasistemas.gestaogastos.model.dto.LancamentoValoresDTO;
 import org.springframework.beans.factory.annotation.Autowired;

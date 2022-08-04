@@ -2,7 +2,7 @@ package com.digitadasistemas.gestaogastos.controller.services;
 
 import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
-import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsulta;
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.filtro.CategoriaFiltro;
@@ -39,11 +39,11 @@ public class CategoriaService {
 				.orElseThrow(() -> new ObjetoNaoEncontrado("Categoria não encontrado nome: " + nome));
 	}
 	
-	public List<CategoriaConsulta> listar(){
+	public List<CategoriaConsultaDTO> listar(){
 		CategoriaFiltro filtro = new CategoriaFiltro();
 		filtro.setUsuario(gestaoSecurity.getUsuario());
 		return repository.findAll(CategoriaSpec.comFiltro(filtro)).stream()
-				.map( categoria -> new CategoriaConsulta(categoria)).collect(Collectors.toList());
+				.map( categoria -> new CategoriaConsultaDTO(categoria)).collect(Collectors.toList());
 	}
 	
 	public Categoria atualizar(CategoriaInput categoriaInput, Long id) {

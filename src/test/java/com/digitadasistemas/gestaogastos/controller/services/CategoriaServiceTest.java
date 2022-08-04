@@ -6,9 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsulta;
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
-import com.digitadasistemas.gestaogastos.model.entities.Grupo;
 import com.digitadasistemas.gestaogastos.model.repositories.UsuarioRepository;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -52,7 +51,7 @@ public class CategoriaServiceTest {
 		service.cadastrar(categoria1);
 		service.cadastrar(categoria2);
 		
-		List<CategoriaConsulta> listaCategoria = service.listar();
+		List<CategoriaConsultaDTO> listaCategoria = service.listar();
 		
 		assertTrue(listaCategoria.size() > 2);	
 		

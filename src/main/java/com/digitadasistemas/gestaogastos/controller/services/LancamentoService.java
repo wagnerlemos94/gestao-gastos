@@ -71,13 +71,17 @@ public class LancamentoService {
 		return lancamentosTotal;
 	}
 
+	private List<LancamentoConsultaDTO> converteDto(List<Lancamento> lancamentos){
+		return lancamentos.stream()
+				.map(
+						lancamento -> new LancamentoConsultaDTO(lancamento)
+				).collect(Collectors.toList());
+	}
+
 	public List<LancamentoConsultaDTO> listar(LancamentoFiltro filtro) {
 
 		filtro.setUsuario(gestaoSecurity.getUsuario());
-		List<LancamentoConsultaDTO>lancamentos = lancamentorepository.findAll(LancamentoSpec.comFiltro(filtro)).stream()
-				.map(
-				lancamento -> new LancamentoConsultaDTO(lancamento)
-				).collect(Collectors.toList());
+		List<LancamentoConsultaDTO>lancamentos = converteDto(lancamentorepository.findAll(LancamentoSpec.comFiltro(filtro)));
 
 		return calculoValorTotal(lancamentos);
 	}
@@ -86,6 +90,12 @@ public class LancamentoService {
 		filtro.setUsuario(gestaoSecurity.getUsuario());
 		return lancamentorepository.buscarTodos();
 
+	}
+
+	public List<LancamentoConsultaDTO> buscarLancamentoPorCategoria(Long id){
+		Categoria categoria = new Categoria();
+		categoria.setId(id);
+			return converteDto(lancamentorepository.findAllByCategoria(categoria));
 	}
 
 	@Transactional

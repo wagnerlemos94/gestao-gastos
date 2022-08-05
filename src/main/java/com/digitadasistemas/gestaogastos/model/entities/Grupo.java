@@ -3,8 +3,11 @@ package com.digitadasistemas.gestaogastos.model.entities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,4 +23,7 @@ public class Grupo {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "grupo", fetch = FetchType.EAGER)
+    private List<Categoria> categorias = new ArrayList<>();
 }

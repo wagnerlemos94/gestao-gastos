@@ -20,6 +20,8 @@ public class CategoriaSpec {
                 predicates.add(builder.equal(root.get("usuario"), filtro.getUsuario()));
             }
 
+            query.orderBy(builder.asc(root.get("grupo")));
+
             return builder.and(predicates.toArray(new Predicate[0]));
         };
     }

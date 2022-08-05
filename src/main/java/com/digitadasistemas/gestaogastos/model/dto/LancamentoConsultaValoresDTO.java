@@ -14,6 +14,7 @@ public class LancamentoConsultaValoresDTO {
 
 	private String grupo;
 	private String categoria;
+	private Long categoriaId;
 	private TipoLancamento tipo;
 	private Double valor;
 

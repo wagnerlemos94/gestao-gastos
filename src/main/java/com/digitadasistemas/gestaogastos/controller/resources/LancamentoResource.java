@@ -53,6 +53,12 @@ public class LancamentoResource {
 	public List<LancamentoConsultaValoresDTO> listarAgrupado(@PathParam(value = "filtro") LancamentoFiltro filtro) {
 		return lancamentoService.listarAgrupado(filtro);
 	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "categoria/{id}")
+	public List<LancamentoConsultaDTO> listarLancamentoPorCategoria(@PathVariable Long id) {
+		return lancamentoService.buscarLancamentoPorCategoria(id);
+	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

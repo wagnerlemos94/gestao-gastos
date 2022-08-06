@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Locale;
 
 @Getter
@@ -24,12 +25,14 @@ public class LancamentoInput {
     private final Long categoria;
     @NotBlank(message = "O campo Descrição é Obrigatório")
     private final String descricao;
-    @NotNull(message = "O campo Mês é Obrigatório")
+//    @NotNull(message = "O campo Mês é Obrigatório")
     private final Integer mes;
     @NotNull(message = "O campo Tipo é Obrigatório")
     private final Integer tipo;
     @NotNull(message = "O campo Valor é Obrigatório")
     private final Double valor;
+    @NotNull(message = "O campo Data é Obrigatório")
+    private final Date data;
     private final Usuario usuario;
 
     public static Lancamento to(LancamentoInput lancamentoInput){
@@ -39,9 +42,10 @@ public class LancamentoInput {
         lancamento.setCategoria(categoria);
         lancamento.setId(lancamentoInput.getId());
         lancamento.setDescricao(lancamentoInput.getDescricao().toUpperCase());
+        lancamento.setMes(1);
         lancamento.setValor(lancamentoInput.getValor());
         lancamento.setTipo(TipoLancamento.toEnum(lancamentoInput.getTipo()).getCodigo());
-        lancamento.setMes(Mes.toEnum(lancamentoInput.getMes()).getCodigo());
+        lancamento.setData(lancamentoInput.getData());
         lancamento.setUsuario(lancamentoInput.getUsuario());
 
         return lancamento;

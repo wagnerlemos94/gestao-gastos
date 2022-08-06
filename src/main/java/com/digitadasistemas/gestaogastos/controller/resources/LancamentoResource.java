@@ -1,5 +1,6 @@
 package com.digitadasistemas.gestaogastos.controller.resources;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -50,7 +51,7 @@ public class LancamentoResource {
 
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(value = "agrupados")
-	public List<LancamentoConsultaValoresDTO> listarAgrupado(@PathParam(value = "filtro") LancamentoFiltro filtro) {
+	public List<LancamentoConsultaValoresDTO> listarAgrupado(@PathParam(value = "filtro") LancamentoFiltro filtro) throws ParseException {
 		return lancamentoService.listarAgrupado(filtro);
 	}
 

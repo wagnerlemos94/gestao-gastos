@@ -16,6 +16,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -35,6 +37,8 @@ public class Lancamento {
 	private Double valor;	
 	@Column(nullable = false)
 	private Mes mes;
+	@Column(nullable = false)
+	private Date data;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)

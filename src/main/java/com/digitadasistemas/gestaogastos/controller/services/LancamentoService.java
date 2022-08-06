@@ -1,5 +1,8 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,10 +89,15 @@ public class LancamentoService {
 		return calculoValorTotal(lancamentos);
 	}
 
-	public List<LancamentoConsultaValoresDTO> listarAgrupado(LancamentoFiltro filtro) {
-		filtro.setUsuario(gestaoSecurity.getUsuario());
-		return lancamentorepository.buscarTodos();
+	public List<LancamentoConsultaValoresDTO> listarAgrupado(LancamentoFiltro filtro) throws ParseException {
 
+		return lancamentorepository.buscarTodos(gestaoSecurity.getUsuario(), formataData(filtro.getDataInicio()), formataData(filtro.getDataFinal()));
+
+	}
+
+	private Date formataData(String data) throws ParseException {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		return formato.parse(data);
 	}
 
 	public List<LancamentoConsultaDTO> buscarLancamentoPorCategoriaETipo(Long id, String tipo){

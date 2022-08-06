@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,10 +33,11 @@ public class LancamentoServiceTest {
 	
 	private static final Categoria categoria = new Categoria(1L,"carro");
 	private static Set<Role> roles = new HashSet<Role>();
-	
+
+	private static Date data = new Date();
 	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com","123456", roles);
-	public static final Lancamento lancamento = new Lancamento(null,TipoLancamento.DESPESA,"Alinhamento + Balanciamento",60.00,Mes.JANEIRO,categoria,usuario);
-	public static final LancamentoInput lancamentoInput = new LancamentoInput(null,categoria.getId(),"Lancamento edição",Mes.JANEIRO.getCodigo(),TipoLancamento.DESPESA.getCodigo(),60.00,usuario);
+	public static final Lancamento lancamento = new Lancamento(null,TipoLancamento.DESPESA,"Alinhamento + Balanciamento",60.00,Mes.JANEIRO,data,categoria,usuario);
+	public static final LancamentoInput lancamentoInput = new LancamentoInput(null,categoria.getId(),"Lancamento edição",1,TipoLancamento.DESPESA.getCodigo(),60.00,data,usuario);
 
 	@Order(1)
 	@Test

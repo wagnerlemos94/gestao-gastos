@@ -55,9 +55,9 @@ public class LancamentoResource {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(value = "categoria/{id}")
-	public List<LancamentoConsultaDTO> listarLancamentoPorCategoria(@PathVariable Long id) {
-		return lancamentoService.buscarLancamentoPorCategoria(id);
+	@GetMapping(value = "categoria/{id}/lancamento/{tipo}")
+	public List<LancamentoConsultaDTO> listarLancamentoPorCategoriaETipo(@PathVariable Long id,@PathVariable  String tipo) {
+		return lancamentoService.buscarLancamentoPorCategoriaETipo(id, tipo);
 	}
 	
 	@PutMapping("/{id}")

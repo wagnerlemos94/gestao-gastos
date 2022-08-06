@@ -5,6 +5,7 @@ import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNao
 import com.digitadasistemas.gestaogastos.model.dto.GrupoConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.GrupoInputDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Grupo;
+import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
 import com.digitadasistemas.gestaogastos.model.repositories.GrupoRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,18 @@ public class GrupoService {
     @Autowired
     private GrupoRepository grupoRepository;
     @Autowired
+    private CategoriaService categoriaService;
+    @Autowired
     private GestaoSecurity gestaoSecurity;
 
     @Transactional(readOnly = true)
     public List<GrupoConsultaDTO> buscar(){
         return grupoRepository.findAll().stream().map(
-                grupo -> new GrupoConsultaDTO(grupo)
+                grupo -> {
+                    GrupoConsultaDTO grupoDTO = new GrupoConsultaDTO(grupo);
+                    grupoDTO.setCategorias(categoriaService.buscarPorGrupo(grupo));
+                    return grupoDTO;
+                }
         ).collect(Collectors.toList());
     }
 

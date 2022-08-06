@@ -4,7 +4,9 @@ import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaListaNomeDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
+import com.digitadasistemas.gestaogastos.model.entities.Grupo;
 import com.digitadasistemas.gestaogastos.model.filtro.CategoriaFiltro;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaSpec;
@@ -34,11 +36,11 @@ public class CategoriaService {
 				.orElseThrow(() -> new ObjetoNaoEncontrado("Categoria não encontrado id: " + id));
 	}
 
-	public Categoria buscar(String nome) {
-		return repository.findByNome(nome, gestaoSecurity.getUsuario().getId())
-				.orElseThrow(() -> new ObjetoNaoEncontrado("Categoria não encontrado nome: " + nome));
+	public List<CategoriaListaNomeDTO> buscarPorGrupo(Grupo grupo) {
+		return repository.findByGrupo(grupo).stream()
+				.map( categoria -> new CategoriaListaNomeDTO(categoria)).collect(Collectors.toList());
 	}
-	
+
 	public List<CategoriaConsultaDTO> listar(){
 		CategoriaFiltro filtro = new CategoriaFiltro();
 		filtro.setUsuario(gestaoSecurity.getUsuario());

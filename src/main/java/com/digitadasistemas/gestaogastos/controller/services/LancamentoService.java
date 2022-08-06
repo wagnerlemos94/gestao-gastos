@@ -92,10 +92,10 @@ public class LancamentoService {
 
 	}
 
-	public List<LancamentoConsultaDTO> buscarLancamentoPorCategoria(Long id){
+	public List<LancamentoConsultaDTO> buscarLancamentoPorCategoriaETipo(Long id, String tipo){
 		Categoria categoria = new Categoria();
 		categoria.setId(id);
-			return converteDto(lancamentorepository.findAllByCategoria(categoria));
+			return converteDto(lancamentorepository.findAllByCategoriaAndTipo(categoria, TipoLancamento.toEnum(tipo)));
 	}
 
 	@Transactional

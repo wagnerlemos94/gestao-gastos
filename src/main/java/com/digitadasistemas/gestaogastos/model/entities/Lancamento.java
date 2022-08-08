@@ -1,12 +1,6 @@
 package com.digitadasistemas.gestaogastos.model.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
@@ -29,14 +23,13 @@ public class Lancamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Long id;
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private TipoLancamento tipo;
 	@Column(nullable = false)
 	private String descricao;
 	@Column(nullable = false)
-	private Double valor;	
-	@Column(nullable = false)
-	private Mes mes;
+	private Double valor;
 	@Column(nullable = false)
 	private Date data;
 	
@@ -50,10 +43,6 @@ public class Lancamento {
 	
 	public void setTipo(int codigo) {
 		this.tipo = TipoLancamento.toEnum(codigo);
-	}
-	
-	public void setMes(int codigo) {
-		this.mes = Mes.toEnum(codigo);
 	}
 
 }

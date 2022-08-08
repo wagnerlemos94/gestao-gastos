@@ -20,8 +20,6 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long>{
 
     List<Lancamento> findAll(Specification<Lancamento> comFiltro);
 
-    List<Lancamento> findAllByCategoriaAndTipo(Categoria categoria, TipoLancamento tipo);
-
     @Query(value = "select new com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaValoresDTO(g.nome , c.nome, c.id, l.tipo, sum(l.valor)) " +
             "from Lancamento l" +
             " join Categoria c on c.id = l.categoria.id" +

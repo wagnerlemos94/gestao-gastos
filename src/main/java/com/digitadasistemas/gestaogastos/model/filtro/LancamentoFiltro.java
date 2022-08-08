@@ -12,8 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LancamentoFiltro {
-	
-	private Mes mes;
+
+	private String tipo;
 	private String dataInicio;
 	private String dataFinal;
 	private Integer categoria;

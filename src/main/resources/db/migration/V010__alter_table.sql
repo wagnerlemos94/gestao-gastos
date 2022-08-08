@@ -1,0 +1,1 @@
+alter table lancamento drop COLUMN mes;

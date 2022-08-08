@@ -25,8 +25,6 @@ public class LancamentoInput {
     private final Long categoria;
     @NotBlank(message = "O campo Descrição é Obrigatório")
     private final String descricao;
-//    @NotNull(message = "O campo Mês é Obrigatório")
-    private final Integer mes;
     @NotNull(message = "O campo Tipo é Obrigatório")
     private final Integer tipo;
     @NotNull(message = "O campo Valor é Obrigatório")
@@ -42,7 +40,6 @@ public class LancamentoInput {
         lancamento.setCategoria(categoria);
         lancamento.setId(lancamentoInput.getId());
         lancamento.setDescricao(lancamentoInput.getDescricao().toUpperCase());
-        lancamento.setMes(1);
         lancamento.setValor(lancamentoInput.getValor());
         lancamento.setTipo(TipoLancamento.toEnum(lancamentoInput.getTipo()).getCodigo());
         lancamento.setData(lancamentoInput.getData());

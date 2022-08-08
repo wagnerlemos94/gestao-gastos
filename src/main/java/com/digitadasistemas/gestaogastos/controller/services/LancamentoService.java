@@ -1,8 +1,6 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +11,7 @@ import com.digitadasistemas.gestaogastos.model.dto.*;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
 import com.digitadasistemas.gestaogastos.model.repositories.LancamentoSpec;
+import com.digitadasistemas.gestaogastos.util.Ultil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,19 +90,12 @@ public class LancamentoService {
 
 	public List<LancamentoConsultaValoresDTO> listarAgrupado(LancamentoFiltro filtro) throws ParseException {
 
-		return lancamentorepository.buscarTodos(gestaoSecurity.getUsuario(), formataData(filtro.getDataInicio()), formataData(filtro.getDataFinal()));
+		return lancamentorepository.buscarTodos(gestaoSecurity.getUsuario(), Ultil.formataData(filtro.getDataInicio()), Ultil.formataData(filtro.getDataFinal()));
 
 	}
 
-	private Date formataData(String data) throws ParseException {
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-		return formato.parse(data);
-	}
-
-	public List<LancamentoConsultaDTO> buscarLancamentoPorCategoriaETipo(Long id, String tipo){
-		Categoria categoria = new Categoria();
-		categoria.setId(id);
-			return converteDto(lancamentorepository.findAllByCategoriaAndTipo(categoria, TipoLancamento.toEnum(tipo)));
+	public List<LancamentoConsultaDTO> buscarLancamentoPorCategoriaETipo(LancamentoFiltro filtro){
+			return converteDto(lancamentorepository.findAll(LancamentoSpec.comFiltro(filtro)));
 	}
 
 	@Transactional

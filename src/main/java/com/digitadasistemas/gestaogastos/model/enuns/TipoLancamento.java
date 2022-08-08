@@ -30,7 +30,7 @@ public enum TipoLancamento {
 				return x;  
 			}
 		}
-		throw new IllegalArgumentException("Id Inválido: " + codigo);
+		throw new IllegalArgumentException("Tipo Lancamento para a Id: " + codigo + " Inválido: ");
 	}
 
 	public static TipoLancamento toEnum(String descricao) {
@@ -42,6 +42,6 @@ public enum TipoLancamento {
 				return x;
 			}
 		}
-		throw new IllegalArgumentException("Descricão Inválido: " + descricao);
+		throw new IllegalArgumentException("Tipo Lancamento para a Descricão: " + descricao+ " Inválido: ");
 	}
 }

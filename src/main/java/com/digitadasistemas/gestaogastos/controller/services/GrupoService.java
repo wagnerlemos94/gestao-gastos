@@ -27,7 +27,7 @@ public class GrupoService {
 
     @Transactional(readOnly = true)
     public List<GrupoConsultaDTO> buscar(){
-        return grupoRepository.findAll().stream().map(
+        return grupoRepository.findAllByUsuario(gestaoSecurity.getUsuario()).stream().map(
                 grupo -> {
                     GrupoConsultaDTO grupoDTO = new GrupoConsultaDTO(grupo);
                     grupoDTO.setCategorias(categoriaService.buscarPorGrupo(grupo));

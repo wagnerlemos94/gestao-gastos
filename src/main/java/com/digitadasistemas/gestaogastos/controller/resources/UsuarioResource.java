@@ -2,17 +2,12 @@ package com.digitadasistemas.gestaogastos.controller.resources;
 
 import java.util.List;
 
+import com.digitadasistemas.gestaogastos.model.dto.UsuarioConsultaDTO;
+import com.digitadasistemas.gestaogastos.model.dto.UsuarioInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.digitadasistemas.gestaogastos.controller.services.UsuarioService;
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
@@ -25,15 +20,15 @@ public class UsuarioResource {
 	private UsuarioService service;
 	
 	@PostMapping
-	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario){
-		usuario = service.cadastrar(usuario);
-		return ResponseEntity.ok().body(usuario);
+	@ResponseStatus(HttpStatus.CREATED)
+	public void cadastrar(@RequestBody UsuarioInputDTO usuarioInputDTO){
+		service.cadastrar(usuarioInputDTO);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> buscar(@PathVariable Long id){
-		Usuario usuario = service.buscar(id);
-		return ResponseEntity.ok().body(usuario);
+	@ResponseStatus(HttpStatus.OK)
+	public UsuarioConsultaDTO buscar(@PathVariable Long id){
+		return service.buscar(id);
 	}
 	
 	@GetMapping("/search")
@@ -43,16 +38,15 @@ public class UsuarioResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> listar(){
-		List<Usuario> Usuarios = service.listar();
-		return ResponseEntity.ok().body(Usuarios);
+	@ResponseStatus(HttpStatus.OK)
+	public List<UsuarioConsultaDTO> listar(){
+		return service.listar();
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario,@PathVariable Long id){
-		usuario = service.atualizar(usuario, id);
-		return ResponseEntity.ok().body(usuario);
-	}
+//	@PutMapping("/{id}")
+//	public UsuarioConsultaDTO atualizar(@RequestBody UsuarioInputDTO usuarioInputDTO,@PathVariable Long id){
+//		return service.atualizar(usuarioInputDTO, id);
+//	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id){

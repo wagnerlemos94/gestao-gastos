@@ -14,7 +14,6 @@ public class UsuarioConsultaDTO {
         this.id = usuario.getId();
         this.nome = usuario.getNome();
         this.login = usuario.getLogin();
-
     }
 
     public static Usuario to(UsuarioConsultaDTO usuarioConsultaDTO){

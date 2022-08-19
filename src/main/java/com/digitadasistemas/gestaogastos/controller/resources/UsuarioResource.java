@@ -31,10 +31,10 @@ public class UsuarioResource {
 		return service.buscar(id);
 	}
 	
-	@GetMapping("/search")
-	public ResponseEntity<Usuario> buscarPorEmail(@RequestParam String email){
-		Usuario usuario = service.buscarPorLogin(email);
-		return ResponseEntity.ok().body(usuario);
+	@GetMapping("/login/{login}")
+	@ResponseStatus(HttpStatus.OK)
+	public UsuarioConsultaDTO buscar(@PathVariable String login){
+		return service.buscar(login);
 	}
 	
 	@GetMapping

@@ -39,6 +39,12 @@ public class UsuarioService implements UserDetailsService{
 		Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new ObjetoNaoEncontrado("Usuario não encontrado id: " + id));
 		return new UsuarioConsultaDTO(usuario);
 	}
+
+	public UsuarioConsultaDTO buscar(String login) {
+		Usuario usuario = usuarioRepository.findByLogin(login).
+				orElseThrow(() -> new ObjetoNaoEncontrado("Usuario ou Senha inválidos: "));
+		return new UsuarioConsultaDTO(usuario);
+	}
 	
 	public List<UsuarioConsultaDTO> listar(){
 		return usuarioRepository.findAll().stream()
@@ -58,11 +64,5 @@ public class UsuarioService implements UserDetailsService{
 	public void deletar(Long id) {
 		usuarioRepository.deleteById(id);
 	}
-
-	public Usuario buscarPorLogin(String login) {
-		return usuarioRepository.findByLogin(login).
-				orElseThrow(() -> new ObjetoNaoEncontrado("Usuario ou Senha inválidos: "));
-	}
-
 	
 }

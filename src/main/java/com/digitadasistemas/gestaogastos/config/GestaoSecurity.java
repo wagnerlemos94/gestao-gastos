@@ -1,6 +1,7 @@
 package com.digitadasistemas.gestaogastos.config;
 
 import com.digitadasistemas.gestaogastos.controller.services.UsuarioService;
+import com.digitadasistemas.gestaogastos.model.dto.UsuarioConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,6 @@ public class GestaoSecurity {
     }
 
     public Usuario getUsuario(){
-        return usuarioService.buscarPorLogin(getUsuarioLogado().getUsuario());
+        return UsuarioConsultaDTO.to(usuarioService.buscar(getUsuarioLogado().getUsuario()));
     }
 }

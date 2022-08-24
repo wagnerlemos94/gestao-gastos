@@ -28,7 +28,7 @@ public class UsuarioResource {
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public UsuarioConsultaDTO buscar(@PathVariable Long id){
-		return service.buscar(id);
+		return new UsuarioConsultaDTO(service.buscar(id));
 	}
 	
 	@GetMapping("/login/{login}")
@@ -43,10 +43,11 @@ public class UsuarioResource {
 		return service.listar();
 	}
 	
-//	@PutMapping("/{id}")
-//	public UsuarioConsultaDTO atualizar(@RequestBody UsuarioInputDTO usuarioInputDTO,@PathVariable Long id){
-//		return service.atualizar(usuarioInputDTO, id);
-//	}
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizar(@RequestBody UsuarioInputDTO usuarioInputDTO,@PathVariable Long id){
+		service.atualizar(usuarioInputDTO, id);
+	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id){

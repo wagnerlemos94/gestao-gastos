@@ -35,9 +35,8 @@ public class UsuarioService implements UserDetailsService{
 		usuarioRepository.save(UsuarioInputDTO.to(usuarioInputDTO));
 	}
 	
-	public UsuarioConsultaDTO buscar(Long id) {
-		Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new ObjetoNaoEncontrado("Usuario não encontrado id: " + id));
-		return new UsuarioConsultaDTO(usuario);
+	public Usuario buscar(Long id) {
+		return usuarioRepository.findById(id).orElseThrow(() -> new ObjetoNaoEncontrado("Usuario não encontrado id: " + id));
 	}
 
 	public UsuarioConsultaDTO buscar(String login) {
@@ -52,14 +51,14 @@ public class UsuarioService implements UserDetailsService{
 				.collect(Collectors.toList());
 	}
 	
-//	public UsuarioInputDTO atualizar(UsuarioInputDTO usuarioInputDTO, Long id) {
-//		Usuario usuario = new Usuario();
-//		usuario.setId(id);
-//		Usuario usuarioAtual = UsuarioConsultaDTO.to(buscar(id));
-//		us
-//		BeanUtils.copyProperties(lancamento, usuarioAtual);
-//		return usuarioRepository.save(usuario);
-//	}
+	public void atualizar(UsuarioInputDTO usuarioInputDTO, Long id) {
+		Usuario usuario = UsuarioInputDTO.to(usuarioInputDTO);
+		usuario.setId(id);
+		usuario.setSenha(passwordEncoder.encode(usuarioInputDTO.getSenha()));
+		Usuario usuarioAtual = buscar(id);
+		BeanUtils.copyProperties(usuario, usuarioAtual);
+		usuarioRepository.save(usuario);
+	}
 	
 	public void deletar(Long id) {
 		usuarioRepository.deleteById(id);

@@ -1,6 +1,8 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,11 +37,22 @@ public class LancamentoService {
 	private GestaoSecurity gestaoSecurity;
 
 	@Transactional
-	public Lancamento cadastrar(LancamentoInput lancamentoInput) {
-		Lancamento lancamento = LancamentoInput.to(lancamentoInput);
-		lancamento.setUsuario(gestaoSecurity.getUsuario());
-		lancamento.setCategoria(categoriaService.buscar(lancamentoInput.getCategoria()));
-		return lancamentorepository.save(lancamento);
+	public void cadastrar(LancamentoInput lancamentoInput) {
+		for (int i=0;i<lancamentoInput.getParcela();i++){
+			Lancamento lancamento = LancamentoInput.to(lancamentoInput);
+			lancamento.setUsuario(gestaoSecurity.getUsuario());
+			lancamento.setCategoria(categoriaService.buscar(lancamentoInput.getCategoria()));
+			lancamento.setData(addData(lancamento.getData(), i));
+			lancamentorepository.save(lancamento);
+		}
+	}
+
+	private Date addData(Date data,Integer parcela){
+		Calendar c = Calendar.getInstance();
+		c.setTime(data);
+		c.add(Calendar.MONTH, parcela);
+		data = c.getTime();
+		return data;
 	}
 
 	public Lancamento buscar(Long id) {

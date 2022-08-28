@@ -37,12 +37,13 @@ public class LancamentoServiceTest {
 	private static Date data = new Date();
 	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com","123456", roles);
 	public static final Lancamento lancamento = new Lancamento(null,TipoLancamento.DESPESA,"Alinhamento + Balanciamento",60.00,data,categoria,usuario);
-	public static final LancamentoInput lancamentoInput = new LancamentoInput(null,categoria.getId(),"Lancamento edição",TipoLancamento.DESPESA.getCodigo(),60.00,data,usuario);
+	public static final LancamentoInput lancamentoInput = new LancamentoInput(null,categoria.getId(),"Lancamento edição",TipoLancamento.DESPESA.getCodigo(),60.00,data,usuario, null);
 
 	@Order(1)
 	@Test
 	void deveSalvarLancamentoNaBaseDeDados() {
-		Lancamento lancamento = service.cadastrar(this.lancamentoInput);
+		service.cadastrar(this.lancamentoInput);
+		Lancamento lancamento = service.buscar(1L);
 		
 		assertNotEquals(null, lancamento.getId());
 	}
@@ -50,7 +51,8 @@ public class LancamentoServiceTest {
 	@Order(2)
 	@Test
 	void deveBuscarUmaLancamento() {
-		Lancamento lancamento = service.cadastrar(lancamentoInput);
+		service.cadastrar(lancamentoInput);
+		Lancamento lancamento = service.buscar(1L);
 		
 		assertNotEquals(null, lancamento);
 	}

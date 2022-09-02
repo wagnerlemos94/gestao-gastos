@@ -36,9 +36,10 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long>{
             " join Categoria c on c.id = l.categoria.id" +
             " join Grupo g on g.id = c.grupo.id" +
             " where l.mes = :mes" +
+            " and l.ano = :ano" +
             " and l.usuario = :usuario" +
             " group by g.nome, c.nome, l.tipo, c.id" +
             " order by l.tipo asc")
-    List<LancamentoConsultaValoresDTO> buscarTodos(Usuario usuario,Mes mes);
+    List<LancamentoConsultaValoresDTO> buscarTodos(Usuario usuario,Mes mes, Integer ano);
 
 }

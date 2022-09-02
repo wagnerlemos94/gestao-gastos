@@ -117,7 +117,7 @@ public class LancamentoService {
 	public List<LancamentoConsultaValoresDTO> listarAgrupado(LancamentoFiltro filtro) throws ParseException {
 
 		return lancamentorepository.buscarTodos(
-				gestaoSecurity.getUsuario(), Mes.toEnum(filtro.getMes()));
+				gestaoSecurity.getUsuario(), Mes.toEnum(filtro.getMes()), LocalDate.now().getYear());
 //		return lancamentorepository.buscarTodos(gestaoSecurity.getUsuario(), Ultil.formataData(filtro.getDataInicio()), Ultil.formataData(filtro.getDataFinal()));
 
 	}

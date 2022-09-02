@@ -1,6 +1,7 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
 import com.digitadasistemas.gestaogastos.model.dto.*;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
+import com.digitadasistemas.gestaogastos.model.enuns.Mes;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
 import com.digitadasistemas.gestaogastos.model.repositories.LancamentoSpec;
 import com.digitadasistemas.gestaogastos.util.Ultil;
@@ -38,8 +40,19 @@ public class LancamentoService {
 
 	@Transactional
 	public void cadastrar(LancamentoInput lancamentoInput) {
+		int anoAtual = LocalDate.now().getYear();
+		int mesDeEntrada = lancamentoInput.getMes();
+		int contator = 0;
 		for (int i=0;i<lancamentoInput.getParcela();i++){
 			Lancamento lancamento = LancamentoInput.to(lancamentoInput);
+			lancamento.setMes(Mes.toEnum(mesDeEntrada + contator));
+			lancamento.setAno(anoAtual);
+			contator ++;
+			if(lancamento.getMes().equals(Mes.DEZEMBRO)){
+				contator = 0;
+				mesDeEntrada = 1;
+				anoAtual++;
+			}
 			lancamento.setUsuario(gestaoSecurity.getUsuario());
 			lancamento.setCategoria(categoriaService.buscar(lancamentoInput.getCategoria()));
 			lancamento.setData(addData(lancamento.getData(), i));
@@ -103,7 +116,9 @@ public class LancamentoService {
 
 	public List<LancamentoConsultaValoresDTO> listarAgrupado(LancamentoFiltro filtro) throws ParseException {
 
-		return lancamentorepository.buscarTodos(gestaoSecurity.getUsuario(), Ultil.formataData(filtro.getDataInicio()), Ultil.formataData(filtro.getDataFinal()));
+		return lancamentorepository.buscarTodos(
+				gestaoSecurity.getUsuario(), Mes.toEnum(filtro.getMes()));
+//		return lancamentorepository.buscarTodos(gestaoSecurity.getUsuario(), Ultil.formataData(filtro.getDataInicio()), Ultil.formataData(filtro.getDataFinal()));
 
 	}
 

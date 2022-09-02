@@ -21,6 +21,7 @@ public class LancamentoConsultaDTO {
 	private String categoria;
 	private String grupo;
 	private String usuario;
+	private Integer mes;
 	
 	public LancamentoConsultaDTO(Lancamento lancamento) {
 		this.id = lancamento.getId();
@@ -32,6 +33,7 @@ public class LancamentoConsultaDTO {
 		this.categoria = lancamento.getCategoria().getNome();
 		this.grupo = lancamento.getCategoria().getGrupo().getNome();
 		this.usuario = lancamento.getUsuario().getNome();
+		this.mes = lancamento.getMes().getCodigo();
 	}
 
 }

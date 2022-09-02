@@ -18,5 +18,6 @@ public class LancamentoFiltro {
 	private String dataFinal;
 	private Integer categoria;
 	private Usuario usuario;
+	private Integer mes;
 
 }

@@ -1,15 +1,13 @@
 package com.digitadasistemas.gestaogastos.model.entities;
 
-import javax.persistence.*;
-
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -26,6 +24,11 @@ public class Lancamento {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private TipoLancamento tipo;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Mes mes;
+	@Column(nullable = false)
+	private Integer ano;
 	@Column(nullable = false)
 	private String descricao;
 	@Column(nullable = false)

@@ -3,6 +3,7 @@ package com.digitadasistemas.gestaogastos.model.dto;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
+import com.digitadasistemas.gestaogastos.model.enuns.Mes;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,9 @@ public class LancamentoInput {
     private final Double valor;
     @NotNull(message = "O campo Data é Obrigatório")
     private final Date data;
+    @NotNull(message = "O campo Mês é Obrigatório")
+    private final Integer mes;
     private final Usuario usuario;
-    @NotNull(message = "O campo Parcela é Obrigatório")
     private final Integer parcela;
 
     public static Lancamento to(LancamentoInput lancamentoInput){
@@ -42,6 +44,7 @@ public class LancamentoInput {
         lancamento.setValor(lancamentoInput.getValor());
         lancamento.setTipo(TipoLancamento.toEnum(lancamentoInput.getTipo()).getCodigo());
         lancamento.setData(lancamentoInput.getData());
+        lancamento.setMes(Mes.toEnum(lancamentoInput.getMes()));
         lancamento.setUsuario(lancamentoInput.getUsuario());
 
         return lancamento;

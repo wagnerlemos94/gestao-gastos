@@ -15,8 +15,6 @@ import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
 import com.digitadasistemas.gestaogastos.model.repositories.LancamentoSpec;
-import com.digitadasistemas.gestaogastos.util.Ultil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +23,8 @@ import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import com.digitadasistemas.gestaogastos.model.repositories.LancamentoRepository;
+
+import static org.springframework.beans.BeanUtils.*;
 
 @Service
 public class LancamentoService {
@@ -135,8 +135,9 @@ public class LancamentoService {
 		Lancamento lancamento = LancamentoInput.to(lancamentoInput);
 		lancamento.setCategoria(categoria);
 		lancamento.setUsuario(gestaoSecurity.getUsuario());
+		lancamento.setAno(lancamentoAtual.getAno());
 
-		BeanUtils.copyProperties(lancamento, lancamentoAtual);
+		copyProperties(lancamento, lancamentoAtual);
 		lancamentorepository.save(lancamento);
 	}
 

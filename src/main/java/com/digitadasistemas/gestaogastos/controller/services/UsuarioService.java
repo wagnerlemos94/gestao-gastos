@@ -31,7 +31,7 @@ public class UsuarioService implements UserDetailsService{
 	}
 	
 	public void cadastrar(UsuarioInputDTO usuarioInputDTO) {
-		usuarioInputDTO.setSenha(passwordEncoder.encode(usuarioInputDTO.getSenha()));
+		usuarioInputDTO.setSenha(passwordEncoder.encode("123456"));
 		usuarioRepository.save(UsuarioInputDTO.to(usuarioInputDTO));
 	}
 	

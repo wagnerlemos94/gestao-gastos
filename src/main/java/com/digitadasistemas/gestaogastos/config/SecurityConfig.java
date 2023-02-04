@@ -10,21 +10,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableResourceServer
-@EnableAuthorizationServer
+//@EnableResourceServer
+//@EnableAuthorizationServer
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private static final String[] PUBLIC_MATCHARS = {
-		"/usuarios/**",
-		"/token/**"
+		"/swagger-ui/**",
+			"/api-docs/**"
 	};
 	
 	@Autowired
@@ -34,17 +32,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private UserDetailsService userDetailsService;
 
 	@Override
-	@Autowired
+//	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
-	
+
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable();
-		http.authorizeHttpRequests()
-		.antMatchers(PUBLIC_MATCHARS).permitAll()
-		.anyRequest().authenticated();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+		http.authorizeRequests()
+				.and().cors()
+				.and().csrf().disable()
+				.authorizeRequests()
+				.antMatchers(
+						PUBLIC_MATCHARS
+				).permitAll().
+				anyRequest().
+				authenticated().and()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 	}
 	
 	@Bean
@@ -53,10 +59,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 	}
-	
-//	@Bean
-//	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
-	
 }

@@ -8,3 +8,11 @@ springdoc:
 gestao:
     jwt:
     secret: gestaoGasto
+
+logging:
+    level:
+        org:
+            hibernate: error
+            springframework:
+                web: debug
+        root: warn

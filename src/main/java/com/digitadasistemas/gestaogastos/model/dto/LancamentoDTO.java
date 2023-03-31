@@ -4,6 +4,7 @@ import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
+import com.digitadasistemas.gestaogastos.model.enuns.Status;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class LancamentoDTO {
     private Double valor;
     private Date data;
     private String categoria;
+    private String status;
     private UsuarioConsultaDTO usuario;
 
     public LancamentoDTO(Lancamento lancamento){
@@ -35,6 +37,7 @@ public class LancamentoDTO {
         this.data = lancamento.getData();
         this.categoria = lancamento.getCategoria().getNome();
         this.usuario = new UsuarioConsultaDTO(lancamento.getUsuario());
+        this.status = lancamento.getStatus().getDescricao();
     }
 
 }

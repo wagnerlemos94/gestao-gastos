@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/lancamentos")
-public class LancamentoResource extends RestTemplate{
+public class LancamentoResource{
 	
 	@Autowired
 	private LancamentoService lancamentoService;
@@ -28,16 +28,6 @@ public class LancamentoResource extends RestTemplate{
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void cadastrar(@Valid @RequestBody LancamentoInput lancamentoInput){
 		lancamentoService.cadastrar(lancamentoInput);
-	}
-
-	@GetMapping("/teste/{cep}")
-	public ResponseEntity<Object> buscarCep(@PathVariable String cep){
-		String path = "https://viacep.com.br/ws/" + cep + "/json";
-		try {
-			return ResponseEntity.ok(getForObject(path,Object.class ));
-		}catch (HttpClientErrorException e){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cep Inválido");
-		}
 	}
 	
 	@GetMapping("/{id}")

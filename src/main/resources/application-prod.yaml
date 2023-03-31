@@ -1,0 +1,21 @@
+spring:
+  flyway:
+    enabled: 'true'
+  datasource:
+    username: gestao-financeira
+    url: jdbc:mysql://35.224.218.51/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
+    password: Gestao-Financeira@
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: 'true'
+security:
+  oauth2:
+    client:
+      client-secret: '123'
+      client-id: algaworks
+      scope: password
+gestao:
+  jwt:
+    secret: gestaoGasto

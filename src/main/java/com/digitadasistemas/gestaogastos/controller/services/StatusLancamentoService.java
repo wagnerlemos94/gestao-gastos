@@ -16,25 +16,20 @@ public class StatusLancamentoService {
         private int id;
         private String descricao;
     }
-//
-//    public Status[] listar() {
-//        return Status.values();
-//
-//    }
 
     public List<StatusLancamento> listar() {
+        return montarListaStatusLancamento();
 
+    }
 
+    private  List<StatusLancamento> montarListaStatusLancamento(){
         List<StatusLancamento> listaStatus = new ArrayList<StatusLancamento>();
         for(Status status : Status.values()){
             StatusLancamento statusLancamento = new StatusLancamento();
             statusLancamento.setId(status.getCodigo());
             statusLancamento.setDescricao(status.getDescricao());
             listaStatus.add(statusLancamento);
-
         }
-
         return listaStatus;
-
     }
 }

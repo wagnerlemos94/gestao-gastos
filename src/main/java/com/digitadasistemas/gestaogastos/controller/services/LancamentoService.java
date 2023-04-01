@@ -34,8 +34,6 @@ public class LancamentoService {
 	@Autowired
 	private CategoriaService categoriaService;
 	@Autowired
-	private CategoriaRepository categoriaRepository;
-	@Autowired
 	private GestaoSecurity gestaoSecurity;
 
 	@Transactional

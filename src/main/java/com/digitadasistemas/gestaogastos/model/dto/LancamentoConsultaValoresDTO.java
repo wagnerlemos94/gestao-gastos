@@ -18,6 +18,4 @@ public class LancamentoConsultaValoresDTO {
 	private Long categoriaId;
 	private TipoLancamento tipo;
 	private Double valor;
-	private Status status;
-
 }

@@ -1,6 +1,7 @@
 package com.digitadasistemas.gestaogastos.model.dto;
 
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
+import com.digitadasistemas.gestaogastos.model.enuns.Status;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import lombok.*;
 
@@ -17,5 +18,4 @@ public class LancamentoConsultaValoresDTO {
 	private Long categoriaId;
 	private TipoLancamento tipo;
 	private Double valor;
-
 }

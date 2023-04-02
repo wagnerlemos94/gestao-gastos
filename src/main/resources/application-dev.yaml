@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
+    password: ${dbPasswordDev:admin}
+  flyway:
+    locations: classpath:db/migration
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: 'true'
+security:
+  oauth2:
+    client:
+      client-secret: '123'
+      client-id: algaworks
+      scope: password
+gestao:
+  jwt:
+    secret: gestaoGasto

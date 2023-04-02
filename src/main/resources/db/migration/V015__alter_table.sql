@@ -1,1 +1,1 @@
-alter table lancamento add COLUMN status varchar(20) not null;
+alter table lancamento add COLUMN status varchar(20) default 'PENDENTE' not null;

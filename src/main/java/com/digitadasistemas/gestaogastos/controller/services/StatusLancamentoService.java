@@ -14,7 +14,7 @@ public class StatusLancamentoService {
     @Data
     public static class StatusLancamento{
         private int id;
-        private String descricao;
+        private String nome;
     }
 
     public List<StatusLancamento> listar() {
@@ -27,7 +27,7 @@ public class StatusLancamentoService {
         for(Status status : Status.values()){
             StatusLancamento statusLancamento = new StatusLancamento();
             statusLancamento.setId(status.getCodigo());
-            statusLancamento.setDescricao(status.getDescricao());
+            statusLancamento.setNome(status.getDescricao());
             listaStatus.add(statusLancamento);
         }
         return listaStatus;

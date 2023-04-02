@@ -3,8 +3,7 @@ package com.digitadasistemas.gestaogastos.model.enuns;
 public enum Status {
 
 	PENDENTE(1,"PENDENTE"),
-	PAGO(2,"PAGO"),
-	CANCELADO(3,"CANCELADO");
+	PAGO(2,"PAGO");
 
 	private int codigo;
 	private String descricao;

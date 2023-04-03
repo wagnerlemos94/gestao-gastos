@@ -3,7 +3,7 @@ spring:
     enabled: 'true'
   datasource:
     username: gestao-financeira
-    url: jdbc:mysql://35.224.218.51/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://0.0.0.0/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
     password: Gestao-Financeira@
   jpa:
     properties:

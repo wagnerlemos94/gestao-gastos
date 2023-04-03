@@ -2,7 +2,7 @@ spring:
   flyway:
     enabled: 'true'
   datasource:
-    username: gestao-financeira
+    username: root
     url: jdbc:mysql://0.0.0.0/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
     password: Gestao-Financeira@
   jpa:

@@ -43,6 +43,10 @@ public class Usuario implements UserDetails {
 	private String login;
 	@Column(nullable = false)
 	private String senha;
+	@Column(nullable = false)
+	private boolean ativo = true;
+	@Column(nullable = false)
+	private boolean root = false;
 
 	@Setter(value = AccessLevel.NONE)
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -85,7 +89,7 @@ public class Usuario implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.ativo;
 	}
 
 }

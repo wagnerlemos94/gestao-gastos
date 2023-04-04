@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 import com.digitadasistemas.gestaogastos.model.dto.*;
+import com.digitadasistemas.gestaogastos.model.params.LancamentoUpdateStatusParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +70,12 @@ public class LancamentoResource{
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id){
 		lancamentoService.delete(id);
+	}
+
+	@PutMapping("/status")
+	@ResponseStatus(HttpStatus.OK)
+	public int AtualizarStatus(@RequestBody LancamentoUpdateStatusParams params){
+		return lancamentoService.atualizarStatus(params);
 	}
 
 }

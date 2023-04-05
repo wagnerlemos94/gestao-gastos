@@ -1,5 +1,23 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
+import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
+import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaDTO;
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaValoresDTO;
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoInput;
+import com.digitadasistemas.gestaogastos.model.dto.LancamentoValoresDTO;
+import com.digitadasistemas.gestaogastos.model.entities.Categoria;
+import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
+import com.digitadasistemas.gestaogastos.model.enuns.Mes;
+import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
+import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
+import com.digitadasistemas.gestaogastos.model.params.LancamentoUpdateStatusParams;
+import com.digitadasistemas.gestaogastos.model.repositories.LancamentoRepository;
+import com.digitadasistemas.gestaogastos.model.repositories.LancamentoSpec;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -7,24 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
-import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
-import com.digitadasistemas.gestaogastos.model.dto.*;
-import com.digitadasistemas.gestaogastos.model.entities.Categoria;
-import com.digitadasistemas.gestaogastos.model.enuns.Mes;
-import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
-import com.digitadasistemas.gestaogastos.model.repositories.LancamentoSpec;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
-import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
-import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
-import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
-import com.digitadasistemas.gestaogastos.model.repositories.LancamentoRepository;
-
-import static org.springframework.beans.BeanUtils.*;
+import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Service
 public class LancamentoService {
@@ -118,6 +119,14 @@ public class LancamentoService {
 				gestaoSecurity.getUsuario(), Mes.toEnum(filtro.getMes()), LocalDate.now().getYear());
 //		return lancamentorepository.buscarTodos(gestaoSecurity.getUsuario(), Ultil.formataData(filtro.getDataInicio()), Ultil.formataData(filtro.getDataFinal()));
 
+	}
+
+	public int atualizarStatus(LancamentoUpdateStatusParams params){
+
+		params.setUsuario(gestaoSecurity.getUsuario().getId().intValue());
+		params.setAno(LocalDate.now().getYear());
+
+		return lancamentorepository.atualizarStatus(params);
 	}
 
 	public List<LancamentoConsultaDTO> buscarLancamentoPorCategoriaETipo(LancamentoFiltro filtro){

@@ -1,11 +1,11 @@
 package com.digitadasistemas.gestaogastos.model.dto;
 
-import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
-import com.digitadasistemas.gestaogastos.model.enuns.Status;
+import com.digitadasistemas.gestaogastos.model.enuns.Mes;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
-import lombok.*;
-
-import javax.persistence.SqlResultSetMapping;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -18,4 +18,5 @@ public class LancamentoConsultaValoresDTO {
 	private Long categoriaId;
 	private TipoLancamento tipo;
 	private Double valor;
+	private Mes mes;
 }

@@ -24,7 +24,7 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long>{
 
     List<Lancamento> findAll(Specification<Lancamento> comFiltro);
 
-    @Query(value = "select new com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaValoresDTO(g.nome , c.nome, c.id, l.tipo, sum(l.valor)) " +
+    @Query(value = "select new com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaValoresDTO(g.nome , c.nome, c.id, l.tipo, sum(l.valor), l.mes) " +
             " from Lancamento l" +
             " join Categoria c on c.id = l.categoria.id" +
             " join Grupo g on g.id = c.grupo.id" +
@@ -35,7 +35,7 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long>{
             " order by l.tipo asc")
     List<LancamentoConsultaValoresDTO> buscarTodos(Usuario usuario, Date dataInicio, Date dataFinal);
 
-    @Query(value = "select new com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaValoresDTO(g.nome , c.nome, c.id, l.tipo, sum(l.valor)) " +
+    @Query(value = "select new com.digitadasistemas.gestaogastos.model.dto.LancamentoConsultaValoresDTO(g.nome , c.nome, c.id, l.tipo, sum(l.valor), l.mes) " +
             " from Lancamento l" +
             " join Categoria c on c.id = l.categoria.id" +
             " join Grupo g on g.id = c.grupo.id" +

@@ -29,7 +29,108 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Usuario implements UserDetails {
+public class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Usuario implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -44,9 +145,11 @@ public class Usuario implements UserDetails {
 	@Column(nullable = false)
 	private String senha;
 	@Column(nullable = false)
-	private boolean ativo = true;
+	private boolean ativo = false;
 	@Column(nullable = false)
 	private boolean root = false;
+	@Column(nullable = false)
+	private String email;
 
 	@Setter(value = AccessLevel.NONE)
 	@ManyToMany(fetch = FetchType.EAGER)

@@ -24,6 +24,8 @@ public class UsuarioService implements UserDetailsService{
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private EmailService emailService;
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		return usuarioRepository.findByLogin(login).
@@ -31,8 +33,10 @@ public class UsuarioService implements UserDetailsService{
 	}
 	
 	public void cadastrar(UsuarioInputDTO usuarioInputDTO) {
-		usuarioInputDTO.setSenha(passwordEncoder.encode("123456"));
+		usuarioInputDTO.setSenha(passwordEncoder.encode(usuarioInputDTO.getLogin()));
 		usuarioRepository.save(UsuarioInputDTO.to(usuarioInputDTO));
+		usuarioInputDTO.setSenha(usuarioInputDTO.getLogin());
+		emailService.sendMail(usuarioInputDTO, usuarioInputDTO.getEmail(), "Novo Usuário");
 	}
 	
 	public Usuario buscar(Long id) {
@@ -56,12 +60,18 @@ public class UsuarioService implements UserDetailsService{
 		usuario.setId(id);
 		usuario.setSenha(passwordEncoder.encode(usuarioInputDTO.getSenha()));
 		Usuario usuarioAtual = buscar(id);
+		usuario.setAtivo(usuarioAtual.isAtivo());
+		usuario.setRoot(usuarioAtual.isRoot());
 		BeanUtils.copyProperties(usuario, usuarioAtual);
 		usuarioRepository.save(usuario);
 	}
 	
 	public void deletar(Long id) {
 		usuarioRepository.deleteById(id);
+	}
+
+	public int atualizarStatus(boolean ativo,Long id) {
+		return usuarioRepository.atualizarStatus(ativo,id);
 	}
 	
 }

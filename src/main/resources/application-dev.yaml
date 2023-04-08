@@ -10,6 +10,22 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: 'true'
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+            required: 'true'
+          ssl:
+            enable: 'false'
+          auth: 'true'
+    host: smtp.gmail.com
+    username: digidatasistemas@gmail.com
+    password: ${EMAILPASSWOR}
+    test-connection: 'true'
+    port: '587'
+
 security:
   oauth2:
     client:

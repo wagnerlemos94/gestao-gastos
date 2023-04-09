@@ -1,6 +1,8 @@
 package com.digitadasistemas.gestaogastos.config;
 
+import com.digitadasistemas.gestaogastos.controller.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,13 +25,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private static final String[] PUBLIC_MATCHARS = {
-		"/usuarios/**",
-		"/token/**"
+			"/usuarios/",
+			"/token/**"
 	};
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -53,10 +54,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 	}
-	
-//	@Bean
-//	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
 	
 }

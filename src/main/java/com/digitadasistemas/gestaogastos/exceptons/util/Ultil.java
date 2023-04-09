@@ -1,4 +1,4 @@
-package com.digitadasistemas.gestaogastos.util;
+package com.digitadasistemas.gestaogastos.exceptons.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

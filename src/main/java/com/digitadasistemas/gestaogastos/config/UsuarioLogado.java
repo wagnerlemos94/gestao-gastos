@@ -13,10 +13,8 @@ public class UsuarioLogado implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String jti;
-
     private String usuario;
-
     private Long idUsuario;
-
+    private String email;
     private String token;
 }

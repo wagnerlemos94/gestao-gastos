@@ -30,6 +30,10 @@ public class CategoriaService {
 		categoria.setUsuario(gestaoSecurity.getUsuario());
 		return repository.save(categoria);
 	}
+
+	public Categoria cadastrar(Categoria categoria) {
+		return repository.save(categoria);
+	}
 	
 	public Categoria buscar(Long id) {
 		return repository.findById(id)

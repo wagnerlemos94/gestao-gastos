@@ -1,10 +1,17 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.digitadasistemas.gestaogastos.commons.EmailTemplate;
+import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
+import com.digitadasistemas.gestaogastos.model.dto.GrupoInputDTO;
 import com.digitadasistemas.gestaogastos.model.dto.UsuarioConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.UsuarioInputDTO;
+import com.digitadasistemas.gestaogastos.model.entities.Categoria;
+import com.digitadasistemas.gestaogastos.model.entities.Grupo;
+import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,12 +25,20 @@ import com.digitadasistemas.gestaogastos.model.entities.Usuario;
 import com.digitadasistemas.gestaogastos.model.repositories.UsuarioRepository;
 
 @Service
+@Data
 public class UsuarioService implements UserDetailsService{
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private EmailService emailService;
+	@Autowired
+	private GrupoService grupoService;
+	@Autowired
+	private CategoriaService categoriaService;
+
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		return usuarioRepository.findByLogin(login).
@@ -31,8 +46,27 @@ public class UsuarioService implements UserDetailsService{
 	}
 	
 	public void cadastrar(UsuarioInputDTO usuarioInputDTO) {
-		usuarioInputDTO.setSenha(passwordEncoder.encode("123456"));
-		usuarioRepository.save(UsuarioInputDTO.to(usuarioInputDTO));
+		usuarioInputDTO.setSenha(passwordEncoder.encode(usuarioInputDTO.getLogin()));
+		Usuario usuario = usuarioRepository.save(UsuarioInputDTO.to(usuarioInputDTO));
+		usuarioInputDTO.setSenha(usuarioInputDTO.getLogin());
+		cadastroInicial(usuario);
+		emailService.novoUsuario(usuarioInputDTO, usuarioInputDTO.getEmail());
+	}
+
+	private void cadastroInicial(Usuario usuario){
+		Grupo grupo = cadastrarGrupoInicial(usuario);
+		cadastroCategoriaInicial(usuario,grupo);
+	}
+
+	private Grupo cadastrarGrupoInicial(Usuario usuario){
+		List<Grupo> grupos = grupoService.cadastro(Arrays.asList(
+				new GrupoInputDTO("GERAL"),
+				new GrupoInputDTO("CARTÃO DE CRÉDITO")),usuario);
+		return grupos.stream().filter(grupo -> grupo.getNome() == "GERAL").collect(Collectors.toList()).stream().findFirst().get();
+	}
+
+	private void cadastroCategoriaInicial(Usuario usuario, Grupo grupo){
+		categoriaService.cadastrar(new Categoria(null,"DIVERSOS",usuario,grupo));
 	}
 	
 	public Usuario buscar(Long id) {
@@ -56,12 +90,18 @@ public class UsuarioService implements UserDetailsService{
 		usuario.setId(id);
 		usuario.setSenha(passwordEncoder.encode(usuarioInputDTO.getSenha()));
 		Usuario usuarioAtual = buscar(id);
+		usuario.setAtivo(usuarioAtual.isAtivo());
+		usuario.setRoot(usuarioAtual.isRoot());
 		BeanUtils.copyProperties(usuario, usuarioAtual);
 		usuarioRepository.save(usuario);
 	}
 	
 	public void deletar(Long id) {
 		usuarioRepository.deleteById(id);
+	}
+
+	public int atualizarStatus(boolean ativo,Long id) {
+		return usuarioRepository.atualizarStatus(ativo,id);
 	}
 	
 }

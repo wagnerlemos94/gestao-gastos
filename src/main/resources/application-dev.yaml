@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-circular-references: true
   datasource:
     username: root
     url: jdbc:mysql://localhost/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
@@ -10,6 +12,24 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: 'true'
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+            required: 'true'
+          ssl:
+            enable: 'false'
+          auth: 'true'
+    host: 'smtp.gmail.com'
+    username: 'digidatasistemas@gmail.com'
+    password: ${EMAILPASSWOR}
+    test-connection: 'true'
+    port: '587'
+
+email-cop: 'digidatasistemas@gmail.com'
+
 security:
   oauth2:
     client:

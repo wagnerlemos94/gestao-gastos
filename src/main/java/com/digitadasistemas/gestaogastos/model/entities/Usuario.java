@@ -47,6 +47,8 @@ public class Usuario implements UserDetails {
 	private boolean ativo = true;
 	@Column(nullable = false)
 	private boolean root = false;
+	@Column(nullable = false)
+	private String email;
 
 	@Setter(value = AccessLevel.NONE)
 	@ManyToMany(fetch = FetchType.EAGER)

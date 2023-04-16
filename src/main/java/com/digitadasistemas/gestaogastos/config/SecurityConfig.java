@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -24,11 +26,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableAuthorizationServer
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
-	private static final String[] PUBLIC_MATCHARS = {
-			"/usuarios/",
-			"/token/**"
-	};
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
@@ -39,13 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
-	
-	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable();
-		http.authorizeHttpRequests()
-		.antMatchers(PUBLIC_MATCHARS).permitAll()
-		.anyRequest().authenticated();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers(HttpMethod.POST,"/usuarios");
+
 	}
 	
 	@Bean

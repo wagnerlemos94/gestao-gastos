@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.digitadasistemas.gestaogastos.commons.EmailTemplate;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
 import com.digitadasistemas.gestaogastos.model.dto.GrupoInputDTO;
 import com.digitadasistemas.gestaogastos.model.dto.UsuarioConsultaDTO;
@@ -49,7 +50,7 @@ public class UsuarioService implements UserDetailsService{
 		Usuario usuario = usuarioRepository.save(UsuarioInputDTO.to(usuarioInputDTO));
 		usuarioInputDTO.setSenha(usuarioInputDTO.getLogin());
 		cadastroInicial(usuario);
-		emailService.sendMail(usuarioInputDTO, usuarioInputDTO.getEmail(), "Novo Usuário");
+		emailService.novoUsuario(usuarioInputDTO, usuarioInputDTO.getEmail());
 	}
 
 	private void cadastroInicial(Usuario usuario){

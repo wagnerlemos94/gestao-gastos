@@ -25,7 +25,7 @@ spring:
     host: 'smtp.gmail.com'
     username: 'digidatasistemas@gmail.com'
     password: ${EMAILPASSWOR}
-    test-connection: 'false'
+    test-connection: 'true'
     port: '587'
 
 email-cop: 'digidatasistemas@gmail.com'

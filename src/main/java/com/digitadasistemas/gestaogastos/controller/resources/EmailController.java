@@ -1,5 +1,6 @@
 package com.digitadasistemas.gestaogastos.controller.resources;
 
+import com.digitadasistemas.gestaogastos.commons.EmailTemplate;
 import com.digitadasistemas.gestaogastos.controller.services.EmailService;
 import com.digitadasistemas.gestaogastos.model.dto.UsuarioConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.UsuarioInputDTO;
@@ -44,7 +45,7 @@ public class EmailController {
             return "Erro ao enviar email.";
         }
     }
-    @GetMapping("/sand-html")
+    @GetMapping("/sand-html/novo-usuario")
     public String sendMail() {
         try {
             UsuarioInputDTO usuario = new UsuarioInputDTO();
@@ -53,7 +54,7 @@ public class EmailController {
             usuario.setNome("wagner cupertino lemos");
             usuario.setSenha("123123");
 
-            emailService.sendMail(usuario,"wagner.lemos94@hotmail.com", "Teste Envio de e-mail");
+            emailService.novoUsuario(usuario,"wagner.lemos94@hotmail.com");
 
             return "OK";
         } catch (Exception e) {

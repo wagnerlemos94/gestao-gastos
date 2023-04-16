@@ -25,6 +25,8 @@ spring:
     password: ${EMAILPASSWOR}
     test-connection: 'true'
     port: '587'
+
+email-cop: 'digidatasistemas@gmail.com'
 security:
   oauth2:
     client:

@@ -7,6 +7,7 @@ import lombok.*;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Categoria {
 	

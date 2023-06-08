@@ -1,12 +1,10 @@
 package com.digitadasistemas.gestaogastos.model.repositories;
 
-import com.digitadasistemas.gestaogastos.model.entities.Categoria;
-import com.digitadasistemas.gestaogastos.model.entities.Grupo;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import com.digitadasistemas.gestaogastos.model.filtro.LancamentoFiltro;
-import com.digitadasistemas.gestaogastos.util.Ultil;
+import com.digitadasistemas.gestaogastos.exceptons.util.Ultil;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.text.ParseException;

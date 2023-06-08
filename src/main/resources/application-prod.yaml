@@ -1,15 +1,35 @@
 spring:
-  flyway:
-    enabled: 'true'
+  main:
+    allow-circular-references: true
   datasource:
-    username: gestao-financeira
-    url: jdbc:mysql://35.224.218.51/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    url: jdbc:mysql://0.0.0.0/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
     password: Gestao-Financeira@
+  flyway:
+    locations: classpath:db/migration
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: 'true'
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+            required: 'true'
+          ssl:
+            enable: 'false'
+          auth: 'true'
+    host: 'smtp.gmail.com'
+    username: 'digidatasistemas@gmail.com'
+    password: ${EMAILPASSWOR}
+    test-connection: 'true'
+    port: '587'
+
+email-cop: 'digidatasistemas@gmail.com'
+
 security:
   oauth2:
     client:

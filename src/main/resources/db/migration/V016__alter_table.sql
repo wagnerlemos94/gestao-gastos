@@ -1,0 +1,1 @@
+alter table usuario add COLUMN email varchar(100) default '' not null;

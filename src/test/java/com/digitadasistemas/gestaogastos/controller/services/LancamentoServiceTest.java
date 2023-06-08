@@ -36,7 +36,7 @@ public class LancamentoServiceTest {
 	private static Set<Role> roles = new HashSet<Role>();
 
 	private static Date data = new Date();
-	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com","123456", false, false, roles);
+	public static final Usuario usuario = new Usuario(1L, "teste", "teste@email.com","123456", false, false, "email@email.com", roles);
 	public static final Lancamento lancamento = new Lancamento(null,TipoLancamento.DESPESA, Mes.toEnum("JUNHO"), 2002, "Alinhamento + Balanciamento",60.00,data, Status.PENDENTE,categoria,usuario);
 	public static final LancamentoInput lancamentoInput = new LancamentoInput(null,categoria.getId(),"Lancamento edição",TipoLancamento.DESPESA.getCodigo(), 60.00,data,1, 6, usuario, null);
 

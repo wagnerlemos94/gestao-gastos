@@ -2,6 +2,7 @@ package com.digitadasistemas.gestaogastos.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -21,10 +22,14 @@ public class SecurityFilter implements Filter {
 
     private static final String BEARER = "Bearer ";
     private static final String PATH_OAUTH_TOKEN = "/oauth/token";
+    private static final String[] PUBLIC_MATCHARS = {
+            "/usuarios",
+            "/oauth/token"
+    };
     private static final String AUTHORIZATION = "Authorization";
 
-//    @Value("gestao.jwt.secret")
-    private String secret = "gestaoGasto";
+    @Value("${gestao.jwt.secret}")
+    private String secret;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

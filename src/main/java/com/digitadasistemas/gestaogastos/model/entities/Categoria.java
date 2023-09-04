@@ -17,6 +17,7 @@ public class Categoria {
 	private Long id;
 	@Column(nullable = false,unique = true)
 	private String nome;
+	private boolean ativo = true;
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario usuario;
@@ -27,6 +28,13 @@ public class Categoria {
 	public Categoria (Long id, String nome){
 		this.id = id;
 		this.nome = nome;
+	}
+
+	public Categoria (Long id, String nome, Usuario usuario, Grupo grupo){
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.grupo = grupo;
 	}
 
 }

@@ -12,12 +12,14 @@ public class CategoriaConsultaDTO {
     private String nome;
     private String grupo;
     private Long grupoId;
+    private boolean ativo;
 
     public CategoriaConsultaDTO(Categoria categoria){
         this.id = categoria.getId();
         this.nome = categoria.getNome();
         this.grupo = categoria.getGrupo().getNome();
         this.grupoId = categoria.getGrupo().getId();
+        this.ativo = categoria.isAtivo();
     }
 
 }

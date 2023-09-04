@@ -41,12 +41,20 @@ public class CategoriaService {
 	}
 
 	public List<CategoriaListaNomeDTO> buscarPorGrupo(Grupo grupo) {
-		return repository.findByGrupo(grupo).stream()
+		return repository.findByAtivoAndGrupo(true,grupo).stream()
 				.map( categoria -> new CategoriaListaNomeDTO(categoria)).collect(Collectors.toList());
 	}
 
 	public List<CategoriaConsultaDTO> listar(){
 		CategoriaFiltro filtro = new CategoriaFiltro();
+		filtro.setUsuario(gestaoSecurity.getUsuario());
+		return repository.findAll(CategoriaSpec.comFiltro(filtro)).stream()
+				.map( categoria -> new CategoriaConsultaDTO(categoria)).collect(Collectors.toList());
+	}
+
+	public List<CategoriaConsultaDTO> listarAtivos(boolean ativo){
+		CategoriaFiltro filtro = new CategoriaFiltro();
+		filtro.setAtivo(ativo);
 		filtro.setUsuario(gestaoSecurity.getUsuario());
 		return repository.findAll(CategoriaSpec.comFiltro(filtro)).stream()
 				.map( categoria -> new CategoriaConsultaDTO(categoria)).collect(Collectors.toList());
@@ -66,5 +74,10 @@ public class CategoriaService {
 		buscar(id);
 		repository.deleteById(id);
 	}
-	
+
+	public Categoria ativo(Long id, boolean ativo){
+		Categoria categoria = buscar(id);
+		categoria.setAtivo(ativo);
+		return repository.save(categoria);
+	}
 }

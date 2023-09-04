@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class CategoriaFiltro {
 
 	private Usuario usuario;
+	private boolean ativo;
 
 }

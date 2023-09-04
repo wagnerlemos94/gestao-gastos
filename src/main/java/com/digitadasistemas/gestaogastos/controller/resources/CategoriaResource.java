@@ -13,6 +13,7 @@ import com.digitadasistemas.gestaogastos.controller.services.CategoriaService;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/categorias")
@@ -38,7 +39,18 @@ public class CategoriaResource {
 	public List<CategoriaConsultaDTO> listar(){
 		return service.listar();
 	}
-	
+
+	@GetMapping("/ativo")
+	@ResponseStatus(HttpStatus.OK)
+	public List<CategoriaConsultaDTO> listarAtivos(){
+		return service.listarAtivos(true);
+	}
+
+	@PutMapping("/ativo")
+	public CategoriaConsultaDTO ativar(@PathParam("ativo") boolean ativo, @PathParam("id") Long id){
+		return new CategoriaConsultaDTO(service.ativo(id, ativo));
+	}
+
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizar(@RequestBody @Valid CategoriaInput categoriaCategoriaInput,@PathVariable Long id){

@@ -14,8 +14,8 @@ import java.util.Optional;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 
+    List<Categoria> findByAtivoAndGrupo(boolean ativo, Grupo grupo);
     List<Categoria> findByGrupo(Grupo grupo);
-
     List<Categoria> findAll(Specification<Categoria> comFiltro);
 
 }

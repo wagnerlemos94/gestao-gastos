@@ -19,5 +19,6 @@ public class LancamentoFiltro {
 	private Integer categoria;
 	private Usuario usuario;
 	private Integer mes;
+	private Integer ano;
 
 }

@@ -29,7 +29,7 @@ public class LancamentoSpec {
 
             if(filtro.getMes() != null){
                 predicates.add(builder.equal(root.get("mes"), Mes.toEnum(filtro.getMes())));
-                predicates.add(builder.equal(root.get("ano"), LocalDate.now().getYear()));
+                predicates.add(builder.equal(root.get("ano"), filtro.getAno()));
             }
 
             if(filtro.getCategoria() != null){

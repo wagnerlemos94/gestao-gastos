@@ -39,23 +39,23 @@ public class LancamentoService {
 
 	@Transactional
 	public void cadastrar(LancamentoInput lancamentoInput) {
-		int anoAtual = LocalDate.now().getYear();
+		int ano = lancamentoInput.getAno();
 		int mesDeEntrada = lancamentoInput.getMes();
 		int contator = 0;
 		for (int i=0;i<lancamentoInput.getParcela();i++){
 			Lancamento lancamento = LancamentoInput.to(lancamentoInput);
 			lancamento.setMes(Mes.toEnum(mesDeEntrada + contator));
-			lancamento.setAno(anoAtual);
+			lancamento.setAno(ano);
 			contator ++;
 			if(lancamento.getMes().equals(Mes.DEZEMBRO)){
 				contator = 0;
 				mesDeEntrada = 1;
-				anoAtual++;
+				ano++;
 			}
-			lancamento.setUsuario(gestaoSecurity.getUsuario());
-			lancamento.setCategoria(categoriaService.buscar(lancamentoInput.getCategoria()));
-			lancamento.setData(addData(lancamento.getData(), i));
-			lancamentorepository.save(lancamento);
+		lancamento.setUsuario(gestaoSecurity.getUsuario());
+		lancamento.setCategoria(categoriaService.buscar(lancamentoInput.getCategoria()));
+		lancamento.setData(addData(lancamento.getData(), i));
+		lancamentorepository.save(lancamento);
 		}
 	}
 

@@ -32,6 +32,8 @@ public class LancamentoInput {
     private final Date data;
     @NotNull(message = "O campo Mês é Obrigatório")
     private final Integer mes;
+    @NotNull(message = "O campo Ano é Obrigatório")
+    private final Integer ano;
     private final Integer status;
     private final Usuario usuario;
     private final Integer parcela;
@@ -49,6 +51,7 @@ public class LancamentoInput {
         lancamento.setTipo(TipoLancamento.toEnum(lancamentoInput.getTipo()).getCodigo());
         lancamento.setData(lancamentoInput.getData());
         lancamento.setMes(Mes.toEnum(lancamentoInput.getMes()));
+        lancamento.setAno(lancamentoInput.getAno());
         lancamento.setUsuario(lancamentoInput.getUsuario());
         lancamento.setStatus(status);
 

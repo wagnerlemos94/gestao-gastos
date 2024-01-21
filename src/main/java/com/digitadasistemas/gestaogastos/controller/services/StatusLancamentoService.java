@@ -1,6 +1,6 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
-import com.digitadasistemas.gestaogastos.model.enuns.Status;
+import com.digitadasistemas.gestaogastos.model.enuns.StatusPagamento;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +24,10 @@ public class StatusLancamentoService {
 
     private  List<StatusLancamento> montarListaStatusLancamento(){
         List<StatusLancamento> listaStatus = new ArrayList<StatusLancamento>();
-        for(Status status : Status.values()){
+        for(StatusPagamento statusPagamento : StatusPagamento.values()){
             StatusLancamento statusLancamento = new StatusLancamento();
-            statusLancamento.setId(status.getCodigo());
-            statusLancamento.setNome(status.getDescricao());
+            statusLancamento.setId(statusPagamento.getCodigo());
+            statusLancamento.setNome(statusPagamento.getDescricao());
             listaStatus.add(statusLancamento);
         }
         return listaStatus;

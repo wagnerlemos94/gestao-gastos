@@ -2,6 +2,7 @@ package com.digitadasistemas.gestaogastos.model.entities;
 
 import javax.persistence.*;
 
+import com.digitadasistemas.gestaogastos.model.enuns.Status;
 import lombok.*;
 
 @Data
@@ -15,9 +16,11 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Long id;
-	@Column(nullable = false,unique = true)
+	@Column(name = "NOME", nullable = false,unique = true)
 	private String nome;
-	private boolean ativo = true;
+	@Column(name = "ATIVO")
+	@Enumerated(EnumType.ORDINAL)
+	private Status status = Status.ATIVO;
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario usuario;

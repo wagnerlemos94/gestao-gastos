@@ -1,5 +1,6 @@
 package com.digitadasistemas.gestaogastos.exceptons;
 
+import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoJaExiste;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
 import com.digitadasistemas.gestaogastos.exceptons.model.Erro;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -28,9 +29,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<Object> handleNullPointExecption(NullPointerException ex, WebRequest request) {
-        return handle(HttpStatus.INTERNAL_SERVER_ERROR, ex, request);
+        return handle(HttpStatus.BAD_REQUEST, ex, request);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+        return handle(HttpStatus.NOT_FOUND, ex, request);
+    }
+
+    @ExceptionHandler(ObjetoJaExiste.class)
+    public ResponseEntity<Object> handleObjetoJaExisteJaExisteException(ObjetoJaExiste ex, WebRequest request) {
+        return handle(HttpStatus.NOT_FOUND, ex, request);
+    }
     private ResponseEntity<Object> handle(HttpStatus status, Exception ex, WebRequest request) {
 
         var erro = new Erro.Builder()

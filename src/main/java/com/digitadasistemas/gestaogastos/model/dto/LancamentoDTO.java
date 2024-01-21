@@ -1,14 +1,8 @@
 package com.digitadasistemas.gestaogastos.model.dto;
 
-import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
-import com.digitadasistemas.gestaogastos.model.entities.Usuario;
-import com.digitadasistemas.gestaogastos.model.enuns.Mes;
-import com.digitadasistemas.gestaogastos.model.enuns.Status;
-import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import lombok.*;
 
-import javax.persistence.*;
 import java.util.Date;
 
 @Getter
@@ -37,7 +31,7 @@ public class LancamentoDTO {
         this.data = lancamento.getData();
         this.categoria = lancamento.getCategoria().getNome();
         this.usuario = new UsuarioConsultaDTO(lancamento.getUsuario());
-        this.status = lancamento.getStatus().getDescricao();
+        this.status = lancamento.getStatusPagamento().getDescricao();
     }
 
 }

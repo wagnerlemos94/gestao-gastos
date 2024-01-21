@@ -4,7 +4,7 @@ import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.entities.Usuario;
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
-import com.digitadasistemas.gestaogastos.model.enuns.Status;
+import com.digitadasistemas.gestaogastos.model.enuns.StatusPagamento;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ public class LancamentoInput {
     private final Integer parcela;
 
     public static Lancamento to(LancamentoInput lancamentoInput){
-        Status status = lancamentoInput.getStatus() != null ? Status.toEnum(lancamentoInput.getStatus()) : Status.PENDENTE;
+        StatusPagamento status = lancamentoInput.getStatus() != null ? StatusPagamento.toEnum(lancamentoInput.getStatus()) : StatusPagamento.PENDENTE;
 
         Lancamento lancamento = new Lancamento();
         Categoria categoria = new Categoria();
@@ -53,7 +53,7 @@ public class LancamentoInput {
         lancamento.setMes(Mes.toEnum(lancamentoInput.getMes()));
         lancamento.setAno(lancamentoInput.getAno());
         lancamento.setUsuario(lancamentoInput.getUsuario());
-        lancamento.setStatus(status);
+        lancamento.setStatusPagamento(status);
 
         return lancamento;
     }

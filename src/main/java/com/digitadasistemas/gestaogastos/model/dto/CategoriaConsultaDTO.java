@@ -19,7 +19,7 @@ public class CategoriaConsultaDTO {
         this.nome = categoria.getNome();
         this.grupo = categoria.getGrupo().getNome();
         this.grupoId = categoria.getGrupo().getId();
-        this.ativo = categoria.isAtivo();
+        this.ativo = categoria.getStatus().getDescricao().equalsIgnoreCase("ATIVO");
     }
 
 }

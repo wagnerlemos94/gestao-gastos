@@ -35,7 +35,7 @@ public class LancamentoConsultaDTO {
 		this.grupo = lancamento.getCategoria().getGrupo().getNome();
 		this.usuario = lancamento.getUsuario().getNome();
 		this.mes = lancamento.getMes().getCodigo();
-		this.status = lancamento.getStatus().getDescricao();
+		this.status = lancamento.getStatusPagamento().getDescricao();
 	}
 
 }

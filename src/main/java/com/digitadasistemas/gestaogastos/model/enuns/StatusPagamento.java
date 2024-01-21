@@ -1,19 +1,16 @@
 package com.digitadasistemas.gestaogastos.model.enuns;
 
-public enum Status {
+public enum StatusPagamento {
 
-	INATIVO(0,"INATIVO","INATIVO NO SISTEMA, DISPONIVEL PARA LISTAGEM MAS NÃO PARA RELACIONAMENTO"),
-	ATIVO(1,"ATIVO", "ATIVO NO SISTEMA VAI DISPONIVEL PARA LISTAGEM"),
-	EXCLUIDO(2,"EXCLUIDO", "EXCLUIDO PARA O USUÁRIO, NÃO DISPONIVEL PARA LISTAGEM");
+	PENDENTE(1,"PENDENTE"),
+	PAGO(2,"PAGO");
 
 	private int codigo;
 	private String descricao;
-	private String descritivo;
 
-	Status(int codigo, String descricao, String descritivo) {
+	StatusPagamento(int codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
-		this.descritivo = descritivo;
 	}
 
 	public int getCodigo() {
@@ -24,11 +21,11 @@ public enum Status {
 		return descricao;
 	}
 
-	public static Status toEnum(Integer codigo) {
+	public static StatusPagamento toEnum(Integer codigo) {
 		if(codigo == null) {
 			return null;
 		}
-		for(Status x : Status.values()) {
+		for(StatusPagamento x : StatusPagamento.values()) {
 			if(codigo.equals(x.getCodigo())) {
 				return x;
 			}
@@ -36,11 +33,11 @@ public enum Status {
 		throw new IllegalArgumentException("Status para a Id: " + codigo + " Inválido: ");
 	}
 
-	public static Status toEnum(String descricao) {
+	public static StatusPagamento toEnum(String descricao) {
 		if(descricao == null) {
 			return null;
 		}
-		for(Status x : Status.values()) {
+		for(StatusPagamento x : StatusPagamento.values()) {
 			if(descricao.equalsIgnoreCase(x.getDescricao())) {
 				return x;
 			}

@@ -1,12 +1,14 @@
 package com.digitadasistemas.gestaogastos.controller.services;
 
 import com.digitadasistemas.gestaogastos.config.GestaoSecurity;
+import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoJaExiste;
 import com.digitadasistemas.gestaogastos.controller.services.exception.ObjetoNaoEncontrado;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaConsultaDTO;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaInput;
 import com.digitadasistemas.gestaogastos.model.dto.CategoriaListaNomeDTO;
 import com.digitadasistemas.gestaogastos.model.entities.Categoria;
 import com.digitadasistemas.gestaogastos.model.entities.Grupo;
+import com.digitadasistemas.gestaogastos.model.enuns.Status;
 import com.digitadasistemas.gestaogastos.model.filtro.CategoriaFiltro;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaRepository;
 import com.digitadasistemas.gestaogastos.model.repositories.CategoriaSpec;
@@ -26,9 +28,26 @@ public class CategoriaService {
 	private GestaoSecurity gestaoSecurity;
 	
 	public Categoria cadastrar(CategoriaInput categoriaInput) {
+
 		Categoria categoria = CategoriaInput.to(categoriaInput);
 		categoria.setUsuario(gestaoSecurity.getUsuario());
+		Categoria categoriaExiste = isCadastrado(categoria.getNome());
+
+		if(categoriaExiste != null){
+			categoria.setId(categoriaExiste.getId());
+			categoria.setStatus(Status.ATIVO);
+		}
+
 		return repository.save(categoria);
+	}
+
+	private Categoria isCadastrado(String nome){
+		Categoria categoria = findByNome(nome);
+		if(categoria != null && categoria.getStatus().getDescricao() != Status.EXCLUIDO.getDescricao()){
+			throw new ObjetoJaExiste("Categoria " + nome + ", Já cadastrada");
+		}
+
+		return categoria;
 	}
 
 	public Categoria cadastrar(Categoria categoria) {
@@ -41,7 +60,7 @@ public class CategoriaService {
 	}
 
 	public List<CategoriaListaNomeDTO> buscarPorGrupo(Grupo grupo) {
-		return repository.findByAtivoAndGrupo(true,grupo).stream()
+		return repository.findByStatusAndGrupo(Status.ATIVO,grupo).stream()
 				.map( categoria -> new CategoriaListaNomeDTO(categoria)).collect(Collectors.toList());
 	}
 
@@ -75,9 +94,20 @@ public class CategoriaService {
 		repository.deleteById(id);
 	}
 
+	public Categoria findByNome(String nome){
+		return repository.findByNomeAndUsuario(nome, gestaoSecurity.getUsuario());
+	}
+
+	public void excluir(Long id){
+		Categoria categoria = buscar(id);
+		categoria.setStatus(Status.EXCLUIDO);
+		repository.save(categoria);
+	}
+
 	public Categoria ativo(Long id, boolean ativo){
 		Categoria categoria = buscar(id);
-		categoria.setAtivo(ativo);
+		Status status = ativo ? Status.ATIVO : Status.INATIVO;
+		categoria.setStatus(status);
 		return repository.save(categoria);
 	}
 }

@@ -59,8 +59,8 @@ public class CategoriaResource {
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deletar(@PathVariable Long id){
-		service.deletar(id);
+	public void excluir(@PathVariable Long id){
+		service.excluir(id);
 	}
 
 }

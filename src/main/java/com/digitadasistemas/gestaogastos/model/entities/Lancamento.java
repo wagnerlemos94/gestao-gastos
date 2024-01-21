@@ -1,7 +1,7 @@
 package com.digitadasistemas.gestaogastos.model.entities;
 
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
-import com.digitadasistemas.gestaogastos.model.enuns.Status;
+import com.digitadasistemas.gestaogastos.model.enuns.StatusPagamento;
 import com.digitadasistemas.gestaogastos.model.enuns.TipoLancamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +37,8 @@ public class Lancamento {
 	@Column(nullable = false)
 	private Date data;
 	@Enumerated(EnumType.STRING)
-	private Status status = Status.PENDENTE;
+	@Column(name = "STATUS")
+	private StatusPagamento statusPagamento = StatusPagamento.PENDENTE;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)

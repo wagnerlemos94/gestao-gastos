@@ -1,7 +1,7 @@
 package com.digitadasistemas.gestaogastos.model.params;
 
 import com.digitadasistemas.gestaogastos.model.enuns.Mes;
-import com.digitadasistemas.gestaogastos.model.enuns.Status;
+import com.digitadasistemas.gestaogastos.model.enuns.StatusPagamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ public class LancamentoUpdateStatusParams {
 	private int status;
 
 	public String getStatus(){
-		return Status.toEnum(status).getDescricao();
+		return StatusPagamento.toEnum(status).getDescricao();
 	}
 
 }

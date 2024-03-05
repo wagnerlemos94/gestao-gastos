@@ -1,8 +1,6 @@
-server:
-  port: 8081
 spring:
   profiles:
-    active: dev
+    active: prod
 gestao:
   jwt:
   secret: gestaoGasto

@@ -4,7 +4,7 @@ spring:
   datasource:
     username: root
     url: jdbc:mysql://localhost/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
-    password: ${dbPasswordDev:admin}
+    password: ${dbPasswordDev:root}
   flyway:
     locations: classpath:db/migration
   jpa:

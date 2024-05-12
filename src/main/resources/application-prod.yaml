@@ -7,8 +7,6 @@ spring:
     username: ${{secrets.DATABASE_USERNAME}}
     url: ${{secrets.DATABASE_URL}}
     password: ${{secrets.DATABASE_PASSWORD}}
-  flyway:
-    locations: classpath:db/migration
   jpa:
     properties:
       hibernate:

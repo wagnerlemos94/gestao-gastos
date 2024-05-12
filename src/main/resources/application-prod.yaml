@@ -4,9 +4,9 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    username: root
-    url: jdbc:mysql://0.0.0.0/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
-    password: Gestao-Financeira@
+    username: ${{secrets.DATABASE_USERNAME}}
+    url: ${{secrets.DATABASE_URL}}
+    password: ${{secrets.DATABASE_PASSWORD}}
   flyway:
     locations: classpath:db/migration
   jpa:

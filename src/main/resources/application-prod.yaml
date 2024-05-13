@@ -4,9 +4,9 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    username: ${{secrets.DATABASE_USERNAME}}
-    url: ${{secrets.DATABASE_URL}}
-    password: ${{secrets.DATABASE_PASSWORD}}
+    username: user_db
+    url: jdbc:mysql://165.227.252.171/gestaoGastos?createDatabaseIfNotExist=true&serverTimezone=UTC
+    password: root123123
   jpa:
     properties:
       hibernate:

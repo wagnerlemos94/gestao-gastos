@@ -31,4 +31,4 @@ jobs:
       - name: remove container
         run: docker rm -f gestao_gasto_api
       - name: Run docker container gestao_gasto_api
-        run: docker run -d -p 8081:8081 -e DATABASE_URL='${{secrets.DATABASE_URL}}' -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} --name gestao_gasto_api wagnerlemos94/gestao_gasto_api
+        run: docker run -d -p 8081:8081 -e DATABASE_URL='${{secrets.DATABASE_URL}}' -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e PASSWORD_EMAIL=${{secrets.PASSWORD_EMAIL}} -e USERE_MAIL=${{secrets.USERE_MAIL}} --name gestao_gasto_api wagnerlemos94/gestao_gasto_api

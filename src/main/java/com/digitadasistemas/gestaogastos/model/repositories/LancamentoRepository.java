@@ -55,4 +55,7 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long>{
             " and l.usuario_id = :#{#params.usuario}", nativeQuery = true)
     int atualizarStatus(LancamentoUpdateStatusParams params);
 
+    @Query(value = "select * from lancamento where status = 'PENDENTE'  and `data` = CURDATE() ", nativeQuery = true)
+    List<Lancamento> findAllLancamentosPendentes();
+
 }

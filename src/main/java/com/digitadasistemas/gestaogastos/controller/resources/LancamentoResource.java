@@ -2,11 +2,13 @@ package com.digitadasistemas.gestaogastos.controller.resources;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 import com.digitadasistemas.gestaogastos.model.dto.*;
+import com.digitadasistemas.gestaogastos.model.entities.Lancamento;
 import com.digitadasistemas.gestaogastos.model.params.LancamentoUpdateStatusParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,6 +78,12 @@ public class LancamentoResource{
 	@ResponseStatus(HttpStatus.OK)
 	public int AtualizarStatus(@RequestBody LancamentoUpdateStatusParams params){
 		return lancamentoService.atualizarStatus(params);
+	}
+
+	@GetMapping("/pendente")
+	@ResponseStatus(HttpStatus.OK)
+	public List<LancamentoEmailDTO> findAllLancamentosPendentes(){
+		return lancamentoService.findAllLancamentosPendentes().stream().map(LancamentoEmailDTO::new).collect(Collectors.toList());
 	}
 
 }

@@ -23,8 +23,8 @@ spring:
             enable: 'false'
           auth: 'true'
     host: 'smtp.gmail.com'
-    username: 'digidatasistemas@gmail.com'
-    password: ${EMAILPASSWOR}
+    username: ${userEmail}
+    password: ${passwordEmail}
     test-connection: 'false'
     port: '587'
 

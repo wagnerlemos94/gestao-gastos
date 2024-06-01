@@ -11,10 +11,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Locale;
@@ -60,6 +62,15 @@ public class EmailController {
         } catch (Exception e) {
             e.printStackTrace();
             return "Erro ao enviar e-mail";
+        }
+    }
+    @GetMapping("/sendEmail")
+    public String sendEmailLancamentosPendentes() {
+        try {
+            emailService.sendEmaillancamentoPendente();
+            return "Email enviado com sucesso!";
+        } catch (MessagingException e) {
+            return "Erro ao enviar email: " + e.getMessage();
         }
     }
 }

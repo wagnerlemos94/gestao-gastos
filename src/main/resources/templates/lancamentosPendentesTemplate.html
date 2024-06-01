@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Email Template</title>
+    </head>
+    <body>
+        <p>Olá, <span th:text="${name}">[Nome]</span>!</p>
+        <p>Bem-vindo ao nosso serviço. Estamos felizes em tê-lo conosco.</p>
+
+        <p>Esse Lancamento esta pendente.</p>
+
+        <p>tipo: <span th:text="${tipo}">[tipo]</span>!</p>
+        <p>Mes: <span th:text="${mes}">[mes]</span>!</p>
+        <p>Ano: <span th:text="${ano}">[ano]</span>!</p>
+        <p>Data: <span th:text="${data}">[data]</span>!</p>
+        <p>Grupo: <span th:text="${grupo}">[grupo]</span>!</p>
+        <p>Descricao: <span th:text="${descricao}">[descricao]</span>!</p>
+        <p>Valor: <span th:text="${valor}">[valor]</span>!</p>
+        <p>Categoria: <span th:text="${categoria}">[categoria]</span>!</p>
+        <p>Status: <span th:text="${status}">[status]</span>!</p>
+
+
+        <p>Atenciosamente,</p>
+        <p>Digidata Sistemas!</p>
+    </body>
+</html>

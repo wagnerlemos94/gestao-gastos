@@ -171,4 +171,8 @@ public class LancamentoService {
 		lancamentorepository.delete(buscar(id));
 	}
 
+	public List<Lancamento> findAllLancamentosPendentes(){
+		return  lancamentorepository.findAllLancamentosPendentes();
+	}
+
 }

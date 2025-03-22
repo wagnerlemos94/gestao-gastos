@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.digitadasistemas</groupId>
 	<artifactId>gestao-gastos</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>gestao-gastos</name>
 	<description>Projeto de gestão de gastos</description>
 	<properties>
